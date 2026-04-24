@@ -4,293 +4,363 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>NOTESHUBS | Class 12 Visual Notes</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;400;500;600;700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --pink: #e83e8c;
+      --pink-dark: #c72a74;
+      --pink-light: #fff0f7;
+      --pink-border: #ffd6e8;
+      --text: #1e1a2b;
+      --text-muted: #9b7a8e;
+      --bg: #fdf6fa;
+      --white: #ffffff;
+      --shadow: 0 20px 40px -12px rgba(232,62,140,0.18);
     }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: #fff5f9;
-      color: #1e1a2b;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
     }
+
+    /* ── HEADER ── */
     .header {
-      background: linear-gradient(135deg, #ffffff 0%, #fff0f5 100%);
-      border-bottom: 2px solid #ffd9e8;
-      padding: 16px 24px;
+      background: rgba(255,255,255,0.94);
+      border-bottom: 1.5px solid var(--pink-border);
+      padding: 14px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 14px;
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(8px);
-      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
     }
     .logo h1 {
-      font-size: 1.8rem;
+      font-family: 'Sora', sans-serif;
+      font-size: 1.7rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #e83e8c, #ff85b3);
+      background: linear-gradient(135deg, #e83e8c 0%, #ff6db3 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      letter-spacing: -0.5px;
     }
     .logo p {
-      font-size: 0.7rem;
-      color: #b13e6b;
-      margin-top: 2px;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
     }
     .upload-area {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
-      background: #fff0f5;
-      padding: 6px 16px;
+      background: var(--pink-light);
+      padding: 6px 14px 6px 8px;
       border-radius: 60px;
-      border: 1.5px solid #ffc0d4;
+      border: 1.5px solid var(--pink-border);
       flex-wrap: wrap;
     }
-    .upload-preview {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
     .preview-thumb {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid #ffc0d4;
+      border-radius: 10px;
+      border: 1px solid var(--pink-border);
       display: none;
     }
+    #uploadFileName { font-size: 0.72rem; color: var(--pink-dark); max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .upload-label {
-      background: #e83e8c;
+      background: var(--pink);
       color: white;
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.82rem;
+      font-weight: 700;
       cursor: pointer;
       transition: 0.2s;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
+      font-family: 'DM Sans', sans-serif;
     }
-    .upload-label:hover {
-      background: #c72a74;
-      transform: scale(0.97);
-    }
-    #uploadStatus {
-      font-size: 0.75rem;
-      color: #2b7a3e;
-    }
+    .upload-label:hover { background: var(--pink-dark); transform: scale(0.97); }
+    #uploadStatus { font-size: 0.73rem; color: #2b7a3e; font-weight: 600; }
+
+    /* ── SUBJECT TABS ── */
     .subjects-tab {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      padding: 20px 24px 8px 24px;
-      border-bottom: 1px solid #ffe2ec;
+      gap: 10px;
+      padding: 18px 28px 14px;
       background: white;
+      border-bottom: 1.5px solid var(--pink-border);
     }
     .subject-btn {
-      background: #fff0f5;
-      border: none;
-      padding: 10px 28px;
+      background: var(--pink-light);
+      border: 1.5px solid var(--pink-border);
+      padding: 9px 24px;
       border-radius: 50px;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      color: #b13e6b;
+      color: var(--pink-dark);
       cursor: pointer;
-      transition: 0.2s;
+      transition: 0.18s;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
+      font-family: 'DM Sans', sans-serif;
     }
+    .subject-btn:hover { background: #ffe4f0; }
     .subject-btn.active {
-      background: #e83e8c;
+      background: var(--pink);
       color: white;
-      box-shadow: 0 6px 14px rgba(232,62,140,0.3);
+      border-color: transparent;
+      box-shadow: 0 6px 16px rgba(232,62,140,0.32);
     }
+
+    /* ── MAIN CONTENT ── */
     .notes-container {
-      padding: 24px;
-      max-width: 1400px;
+      padding: 28px;
+      max-width: 1440px;
       margin: 0 auto;
     }
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       flex-wrap: wrap;
       gap: 12px;
     }
     .section-title {
-      font-size: 1.5rem;
+      font-family: 'Sora', sans-serif;
+      font-size: 1.45rem;
       font-weight: 700;
-      padding-left: 12px;
-      border-left: 5px solid #e83e8c;
-      color: #2d2a3b;
+      padding-left: 14px;
+      border-left: 5px solid var(--pink);
+      color: var(--text);
+      line-height: 1.2;
     }
     .add-note-btn {
-      background: #e83e8c;
+      background: var(--pink);
       color: white;
       border: none;
-      padding: 8px 18px;
+      padding: 9px 20px;
       border-radius: 50px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: 0.18s;
+      box-shadow: 0 4px 12px rgba(232,62,140,0.25);
     }
+    .add-note-btn:hover { background: var(--pink-dark); transform: translateY(-1px); }
+
+    /* ── NOTES GRID ── */
     .notes-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 20px;
     }
     .note-card {
       background: white;
-      border-radius: 24px;
+      border-radius: 20px;
       overflow: hidden;
-      border: 1.5px solid #ffe2ec;
-      transition: 0.2s;
+      border: 1.5px solid var(--pink-border);
+      transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
       cursor: pointer;
+      animation: fadeUp 0.4s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .note-card:hover {
-      transform: translateY(-4px);
-      border-color: #ffb7cb;
-      box-shadow: 0 20px 28px -12px rgba(232,62,140,0.2);
+      transform: translateY(-5px);
+      border-color: #ffb7d0;
+      box-shadow: var(--shadow);
+    }
+    .card-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--pink-light);
+      overflow: hidden;
     }
     .card-img {
       width: 100%;
-      aspect-ratio: 4 / 3;
+      height: 100%;
       object-fit: cover;
-      background: #fef0f5;
+      transition: transform 0.3s;
+      display: block;
     }
+    .note-card:hover .card-img { transform: scale(1.04); }
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(232,62,140,0.18) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .note-card:hover .card-overlay { opacity: 1; }
+    .zoom-hint {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(232,62,140,0.85);
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .note-card:hover .zoom-hint { opacity: 1; }
+
     .card-info {
-      padding: 14px 16px 16px;
+      padding: 13px 14px 14px;
     }
     .card-title {
       font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 6px;
+      font-size: 0.92rem;
+      margin-bottom: 4px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-    }
-    .action-buttons {
-      display: flex;
+      align-items: flex-start;
       gap: 6px;
+      font-family: 'Sora', sans-serif;
+      color: var(--text);
+      line-height: 1.3;
     }
+    .card-title span { flex: 1; word-break: break-word; }
+    .action-buttons { display: flex; gap: 4px; flex-shrink: 0; }
     .edit-btn, .delete-btn {
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 0.85rem;
-      padding: 4px 8px;
-      border-radius: 30px;
+      font-size: 0.78rem;
+      padding: 4px 7px;
+      border-radius: 20px;
+      transition: 0.15s;
     }
-    .edit-btn {
-      color: #e83e8c;
-    }
-    .edit-btn:hover {
-      background: #fff0f5;
-    }
-    .delete-btn {
-      color: #e83e8c;
-    }
-    .delete-btn:hover {
-      background: #ffe4ed;
-      color: #c72a74;
-    }
-    .card-desc {
-      font-size: 0.7rem;
-      color: #8e6b7c;
-    }
+    .edit-btn { color: var(--pink); }
+    .edit-btn:hover { background: var(--pink-light); }
+    .delete-btn { color: var(--text-muted); }
+    .delete-btn:hover { background: #ffe4ed; color: var(--pink-dark); }
+    .card-desc { font-size: 0.67rem; color: var(--text-muted); font-weight: 500; }
+
+    /* ── EMPTY ── */
     .empty-message {
       grid-column: 1/-1;
       text-align: center;
-      padding: 50px;
-      color: #b98aa2;
+      padding: 60px 20px;
+      color: var(--text-muted);
     }
+    .empty-message i { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+    .empty-message p { font-size: 0.95rem; font-weight: 500; }
+
+    /* ── MODAL ── */
     .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
+      inset: 0;
+      background: rgba(15,10,25,0.92);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1000;
       visibility: hidden;
       opacity: 0;
-      transition: 0.2s;
+      transition: 0.22s;
+      padding: 20px;
     }
-    .modal-overlay.active {
-      visibility: visible;
-      opacity: 1;
-    }
+    .modal-overlay.active { visibility: visible; opacity: 1; }
     .image-modal {
-      background: transparent;
-      max-width: 90vw;
-      max-height: 90vh;
       position: relative;
+      max-width: 92vw;
+      max-height: 92vh;
     }
     .image-modal img {
       max-width: 100%;
-      max-height: 85vh;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      max-height: 88vh;
+      border-radius: 16px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      display: block;
     }
     .close-modal {
       position: absolute;
-      top: -40px;
-      right: -10px;
-      font-size: 32px;
+      top: -44px;
+      right: 0;
+      font-size: 28px;
       cursor: pointer;
       color: white;
-      background: rgba(0,0,0,0.5);
-      width: 40px;
-      height: 40px;
+      background: rgba(232,62,140,0.7);
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: 0.15s;
+      line-height: 1;
     }
-    .close-modal:hover {
-      background: #e83e8c;
-    }
+    .close-modal:hover { background: var(--pink); }
+
+    /* ── FOOTER ── */
     footer {
       text-align: center;
-      padding: 24px;
-      margin-top: 20px;
-      border-top: 1px solid #ffe2ec;
-      font-size: 0.75rem;
-      color: #b56576;
+      padding: 20px 24px;
+      margin-top: 16px;
+      border-top: 1.5px solid var(--pink-border);
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      font-weight: 500;
     }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: #1e1a2e;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      z-index: 3000;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
     @media (max-width: 640px) {
-      .header {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-      .upload-area {
-        justify-content: center;
-      }
-      .notes-grid {
-        grid-template-columns: 1fr;
-      }
-      .subjects-tab {
-        justify-content: center;
-      }
+      .header { flex-direction: column; align-items: stretch; text-align: center; }
+      .upload-area { justify-content: center; }
+      .notes-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .notes-container { padding: 16px; }
+      .subjects-tab { padding: 14px 16px; }
+      .section-title { font-size: 1.15rem; }
+    }
+    @media (max-width: 400px) {
+      .notes-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -298,14 +368,14 @@
 
 <div class="header">
   <div class="logo">
-    <h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1>
-    <p>Class 12 • GitHub raw images • Upload & share notes</p>
+    <h1><i class="fas fa-graduation-cap" style="color:#e83e8c;margin-right:8px;"></i>NOTESHUBS</h1>
+    <p>Class 12 &nbsp;•&nbsp; Visual Notes &nbsp;•&nbsp; Upload & Share</p>
   </div>
   <div class="upload-area">
     <input type="file" id="fileUploadInput" accept="image/*" style="display:none;">
-    <div class="upload-preview">
+    <div style="display:flex;align-items:center;gap:8px;">
       <img id="uploadPreviewImg" class="preview-thumb" alt="preview">
-      <span id="uploadFileName" style="font-size:0.75rem; color:#b13e6b;"></span>
+      <span id="uploadFileName"></span>
     </div>
     <button class="upload-label" id="uploadFileBtn"><i class="fas fa-cloud-upload-alt"></i> Upload Note</button>
     <span id="uploadStatus"></span>
@@ -328,7 +398,7 @@
 </div>
 
 <footer>
-  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Use "Add New Note" to paste GitHub raw image link.
+  <i class="fas fa-heart" style="color:#e83e8c;"></i>&nbsp; Click any card to enlarge &nbsp;•&nbsp; Use "Add New Note" to paste a GitHub raw image URL.
 </footer>
 
 <div id="imageModal" class="modal-overlay">
@@ -338,188 +408,242 @@
   </div>
 </div>
 
-<script>
-  // ========== IMGBB API KEY ==========
-  const IMGBB_API_KEY = "39b5590e3585c6c22b60701b36155d3b";
-  
-  // ========== NOTES DATA (with your actual GitHub raw links) ==========
-  let notesData = [
-    // Chemistry (based on your provided permalinks)
-    { id: 1, subject: "chemistry", title: "Chemistry 671585061", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/671585061_122109315255283911_3156911350345947087_n.jpg", desc: "Click to enlarge" },
-    { id: 2, subject: "chemistry", title: "Chemistry 672691275", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/672691275_122109315249283911_6691752846088755241_n.jpg", desc: "Click to enlarge" },
-    { id: 3, subject: "chemistry", title: "Chemistry 673521905", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/673521905_122109315291283911_4029575501920899533_n.jpg", desc: "Click to enlarge" },
-    { id: 4, subject: "chemistry", title: "Screenshot 071330", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071330.png", desc: "Click to enlarge" },
-    { id: 5, subject: "chemistry", title: "Screenshot 071336", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071336.png", desc: "Click to enlarge" },
-    { id: 6, subject: "chemistry", title: "Screenshot 071344", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071344.png", desc: "Click to enlarge" },
-    { id: 7, subject: "chemistry", title: "Screenshot 071351", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071351.png", desc: "Click to enlarge" },
-    { id: 8, subject: "chemistry", title: "Screenshot 071357", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071357.png", desc: "Click to enlarge" },
-    { id: 9, subject: "chemistry", title: "Screenshot 071403", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071403.png", desc: "Click to enlarge" },
-    { id: 10, subject: "chemistry", title: "Screenshot 071411", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071411.png", desc: "Click to enlarge" },
-    { id: 11, subject: "chemistry", title: "Screenshot 071418", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071418.png", desc: "Click to enlarge" },
-    { id: 12, subject: "chemistry", title: "Screenshot 071426", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071426.png", desc: "Click to enlarge" },
-    // Mathematics
-    { id: 13, subject: "math", title: "Math 667987983", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/667987983_122228570132326428_659498413692828923_n.jpg", desc: "Click to enlarge" },
-    { id: 14, subject: "math", title: "Math 673640429", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/673640429_122230037078326428_8201432397743733965_n.jpg", desc: "Click to enlarge" },
-    { id: 15, subject: "math", title: "Math 674203845", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/674203845_122230151576326428_2659184455978490793_n.jpg", desc: "Click to enlarge" },
-    { id: 16, subject: "math", title: "Math 674444166", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/674444166_122230037168326428_6467345128106203806_n.jpg", desc: "Click to enlarge" },
-    { id: 17, subject: "math", title: "Math 675190078", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/675190078_122230151534326428_8741963825995436161_n.jpg", desc: "Click to enlarge" },
-    { id: 18, subject: "math", title: "Math 675578771", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/675578771_122230151618326428_2117698523574390344_n.jpg", desc: "Click to enlarge" },
-    { id: 19, subject: "math", title: "Math 676923152", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/676923152_122230037126326428_5555090164868953875_n.jpg", desc: "Click to enlarge" },
-    // Physics
-    { id: 20, subject: "physics", title: "Physics 668556295", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/668556295_122229217736326428_5800344575183112312_n.jpg", desc: "Click to enlarge" },
-    { id: 21, subject: "physics", title: "Physics 668984038", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/668984038_122229217604326428_5132577566145805611_n.jpg", desc: "Click to enlarge" },
-    { id: 22, subject: "physics", title: "Physics 669388747", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/669388747_122229217646326428_8455232024208187568_n.jpg", desc: "Click to enlarge" },
-    { id: 23, subject: "physics", title: "Physics 674059450", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/674059450_122229899840326428_1849670502064263688_n.jpg", desc: "Click to enlarge" },
-    { id: 24, subject: "physics", title: "Physics 676838556", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676838556_122199786338520585_7280878525199820986_n.jpg", desc: "Click to enlarge" },
-    { id: 25, subject: "physics", title: "Physics 676923357", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676923357_122199786146520585_8416927790836267373_n%20(1).jpg", desc: "Click to enlarge" },
-    { id: 26, subject: "physics", title: "Physics 678279199", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/678279199_122199786200520585_5662805947512732130_n%20(1).jpg", desc: "Click to enlarge" },
-    // English
-    { id: 27, subject: "english", title: "English 071717", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071717.png", desc: "Click to enlarge" },
-    { id: 28, subject: "english", title: "English 071726", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071726.png", desc: "Click to enlarge" },
-    { id: 29, subject: "english", title: "English 071733", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071733.png", desc: "Click to enlarge" },
-    { id: 30, subject: "english", title: "English 071738", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071738.png", desc: "Click to enlarge" },
-    { id: 31, subject: "english", title: "English 071744", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071744.png", desc: "Click to enlarge" },
-    { id: 32, subject: "english", title: "English 071751", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071751.png", desc: "Click to enlarge" },
-  ];
+<div class="toast" id="toastEl"></div>
 
-  function saveData() {
-    localStorage.setItem("noteshub_visual_final", JSON.stringify(notesData));
+<script>
+  // ── Convert GitHub blob URL to raw URL ──
+  function toRaw(url) {
+    // Already raw
+    if (url.includes("raw.githubusercontent.com")) return url;
+    // blob → raw
+    return url
+      .replace("https://github.com/", "https://raw.githubusercontent.com/")
+      .replace("/blob/", "/");
   }
+
+  const COMMIT = "a0bd33e353b8f0052b6cddd7ffbf9482e6df0212";
+  const BASE   = `https://raw.githubusercontent.com/PsZonee/NotesHubbs/${COMMIT}`;
+
+  // ── All notes (raw URLs) ──
+  const defaultNotes = [
+    // Math
+    { id: 1,  subject: "math",      title: "Math Note 1",       imageUrl: `${BASE}/Math/667987983_122228570132326428_659498413692828923_n.jpg` },
+    { id: 2,  subject: "math",      title: "Math Note 2",       imageUrl: `${BASE}/Math/673640429_122230037078326428_8201432397743733965_n.jpg` },
+    { id: 3,  subject: "math",      title: "Math Note 3",       imageUrl: `${BASE}/Math/674203845_122230151576326428_2659184455978490793_n.jpg` },
+    { id: 4,  subject: "math",      title: "Math Note 4",       imageUrl: `${BASE}/Math/674444166_122230037168326428_6467345128106203806_n.jpg` },
+    { id: 5,  subject: "math",      title: "Math Note 5",       imageUrl: `${BASE}/Math/675190078_122230151534326428_8741963825995436161_n.jpg` },
+    { id: 6,  subject: "math",      title: "Math Note 6",       imageUrl: `${BASE}/Math/675578771_122230151618326428_2117698523574390344_n.jpg` },
+    { id: 7,  subject: "math",      title: "Math Note 7",       imageUrl: `${BASE}/Math/676923152_122230037126326428_5555090164868953875_n.jpg` },
+    // Chemistry
+    { id: 8,  subject: "chemistry", title: "Chemistry Note 1",  imageUrl: `${BASE}/chemistry/671585061_122109315255283911_3156911350345947087_n.jpg` },
+    { id: 9,  subject: "chemistry", title: "Chemistry Note 2",  imageUrl: `${BASE}/chemistry/672691275_122109315249283911_6691752846088755241_n.jpg` },
+    { id: 10, subject: "chemistry", title: "Chemistry Note 3",  imageUrl: `${BASE}/chemistry/673521905_122109315291283911_4029575501920899533_n.jpg` },
+    { id: 11, subject: "chemistry", title: "Chemistry Note 4",  imageUrl: `${BASE}/chemistry/Screenshot%202026-04-24%20071330.png` },
+    { id: 12, subject: "chemistry", title: "Chemistry Note 5",  imageUrl: `${BASE}/chemistry/Screenshot%202026-04-24%20071336.png` },
+    { id: 13, subject: "chemistry", title: "Chemistry Note 6",  imageUrl: `${BASE}/chemistry/Screenshot%202026-04-24%20071344.png` },
+    { id: 14, subject: "chemistry", title: "Chemistry Note 7",  imageUrl: `${BASE}/chemistry/Screenshot%202026-04-24%20071351.png` },
+    { id: 15, subject: "chemistry", title: "Chemistry Note 8",  imageUrl: `${BASE}/chemistry/Screenshot%202026-04-24%20071357.png` },
+    { id: 16, subject: "chemistry", title: "Chemistry Note 9",  imageUrl: `${BASE}/chemistry/Screenshot%202026-04-24%20071403.png` },
+    { id: 17, subject: "chemistry", title: "Chemistry Note 10", imageUrl: `${BASE}/chemistry/Screenshot%202026-04-24%20071411.png` },
+    { id: 18, subject: "chemistry", title: "Chemistry Note 11", imageUrl: `${BASE}/chemistry/Screenshot%202026-04-24%20071418.png` },
+    { id: 19, subject: "chemistry", title: "Chemistry Note 12", imageUrl: `${BASE}/chemistry/Screenshot%202026-04-24%20071426.png` },
+    // Physics
+    { id: 20, subject: "physics",   title: "Physics Note 1",    imageUrl: `${BASE}/physics/668556295_122229217736326428_5800344575183112312_n.jpg` },
+    { id: 21, subject: "physics",   title: "Physics Note 2",    imageUrl: `${BASE}/physics/668984038_122229217604326428_5132577566145805611_n.jpg` },
+    { id: 22, subject: "physics",   title: "Physics Note 3",    imageUrl: `${BASE}/physics/669388747_122229217646326428_8455232024208187568_n.jpg` },
+    { id: 23, subject: "physics",   title: "Physics Note 4",    imageUrl: `${BASE}/physics/674059450_122229899840326428_1849670502064263688_n.jpg` },
+    { id: 24, subject: "physics",   title: "Physics Note 5",    imageUrl: `${BASE}/physics/676838556_122199786338520585_7280878525199820986_n.jpg` },
+    { id: 25, subject: "physics",   title: "Physics Note 6",    imageUrl: `${BASE}/physics/676923357_122199786146520585_8416927790836267373_n%20(1).jpg` },
+    { id: 26, subject: "physics",   title: "Physics Note 7",    imageUrl: `${BASE}/physics/678279199_122199786200520585_5662805947512732130_n%20(1).jpg` },
+    // English
+    { id: 27, subject: "english",   title: "English Note 1",    imageUrl: `${BASE}/english/Screenshot%202026-04-24%20071717.png` },
+    { id: 28, subject: "english",   title: "English Note 2",    imageUrl: `${BASE}/english/Screenshot%202026-04-24%20071726.png` },
+    { id: 29, subject: "english",   title: "English Note 3",    imageUrl: `${BASE}/english/Screenshot%202026-04-24%20071733.png` },
+    { id: 30, subject: "english",   title: "English Note 4",    imageUrl: `${BASE}/english/Screenshot%202026-04-24%20071738.png` },
+    { id: 31, subject: "english",   title: "English Note 5",    imageUrl: `${BASE}/english/Screenshot%202026-04-24%20071744.png` },
+    { id: 32, subject: "english",   title: "English Note 6",    imageUrl: `${BASE}/english/Screenshot%202026-04-24%20071751.png` },
+  ].map(n => ({ ...n, desc: "Click to enlarge" }));
+
+  // ── Data persistence ──
+  let notesData;
   function loadData() {
-    const stored = localStorage.getItem("noteshub_visual_final");
-    if(stored) {
-      notesData = JSON.parse(stored);
-    } else {
-      saveData();
-    }
+    const stored = localStorage.getItem("noteshubs_v2");
+    notesData = stored ? JSON.parse(stored) : defaultNotes;
+  }
+  function saveData() {
+    localStorage.setItem("noteshubs_v2", JSON.stringify(notesData));
   }
   loadData();
 
   let currentSubject = "math";
 
+  // ── Helpers ──
+  function esc(str) {
+    if (!str) return "";
+    return str.replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+  }
+
+  // ── Render ──
   function renderNotes() {
+    const titles = { math:"📐 Mathematics", physics:"⚛️ Physics", chemistry:"🧪 Chemistry", english:"📖 English" };
+    document.getElementById("activeSubjectTitle").textContent = titles[currentSubject] || "Notes";
+
     const filtered = notesData.filter(n => n.subject === currentSubject);
     const grid = document.getElementById("notesGrid");
-    const titles = { math: "📐 Mathematics", physics: "⚛️ Physics", chemistry: "🧪 Chemistry", english: "📖 English" };
-    document.getElementById("activeSubjectTitle").innerHTML = titles[currentSubject] || "Notes";
-    if(filtered.length === 0) {
-      grid.innerHTML = `<div class="empty-message"><i class="fas fa-camera" style="font-size:2rem;"></i><p>No notes yet. Click "Add New Note".</p></div>`;
+
+    if (!filtered.length) {
+      grid.innerHTML = `<div class="empty-message"><i class="fas fa-images"></i><p>No notes yet. Click "Add New Note" to get started.</p></div>`;
       return;
     }
-    grid.innerHTML = filtered.map(note => `
-      <div class="note-card" data-id="${note.id}">
-        <img class="card-img" src="${escapeHtml(note.imageUrl)}" alt="${escapeHtml(note.title)}" onerror="this.src='https://via.placeholder.com/600x400?text=Invalid+Link'; this.style.opacity='0.8';">
+
+    grid.innerHTML = filtered.map((note, i) => `
+      <div class="note-card" data-id="${note.id}" style="animation-delay:${i * 0.04}s">
+        <div class="card-img-wrap">
+          <img class="card-img" src="${esc(note.imageUrl)}" alt="${esc(note.title)}"
+            onerror="this.src='https://via.placeholder.com/600x450/fff0f7/e83e8c?text=Image+Not+Found'; this.style.opacity='0.6';">
+          <div class="card-overlay"></div>
+          <div class="zoom-hint"><i class="fas fa-expand"></i></div>
+        </div>
         <div class="card-info">
           <div class="card-title">
-            <span>${escapeHtml(note.title)}</span>
+            <span>${esc(note.title)}</span>
             <div class="action-buttons">
-              <button class="edit-btn" data-id="${note.id}"><i class="fas fa-pencil-alt"></i></button>
-              <button class="delete-btn" data-id="${note.id}"><i class="fas fa-trash-alt"></i></button>
+              <button class="edit-btn" data-id="${note.id}" title="Edit"><i class="fas fa-pencil-alt"></i></button>
+              <button class="delete-btn" data-id="${note.id}" title="Delete"><i class="fas fa-trash-alt"></i></button>
             </div>
           </div>
-          <div class="card-desc">${escapeHtml(note.desc)}</div>
+          <div class="card-desc">${esc(note.desc)}</div>
         </div>
       </div>
     `).join("");
-    document.querySelectorAll('.note-card').forEach(card => {
-      const img = card.querySelector('.card-img');
-      card.addEventListener('click', (e) => {
-        if(e.target.closest('.edit-btn') || e.target.closest('.delete-btn')) return;
-        const src = img.getAttribute('src');
-        if(src && !src.includes('placeholder') && !src.includes('Invalid+Link')) openImageModal(src);
-        else showToast("Invalid image link. Use Edit to paste a valid GitHub raw image URL.", 3000);
+
+    // Card click → open modal
+    document.querySelectorAll(".note-card").forEach(card => {
+      card.addEventListener("click", e => {
+        if (e.target.closest(".edit-btn") || e.target.closest(".delete-btn")) return;
+        const img = card.querySelector(".card-img");
+        openModal(img.src);
       });
     });
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); editNoteById(id); });
+
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+      btn.addEventListener("click", e => { e.stopPropagation(); editNote(parseInt(btn.dataset.id)); });
     });
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); if(confirm("Delete this note?")) { notesData = notesData.filter(n => n.id !== id); saveData(); renderNotes(); showToast("Note deleted."); } });
+    document.querySelectorAll(".delete-btn").forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.stopPropagation();
+        if (confirm("Delete this note?")) {
+          notesData = notesData.filter(n => n.id !== parseInt(btn.dataset.id));
+          saveData(); renderNotes(); showToast("Note deleted.");
+        }
+      });
     });
   }
 
-  function escapeHtml(str) { if(!str) return ""; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
-  function editNoteById(id) {
+  function editNote(id) {
     const note = notesData.find(n => n.id === id);
-    if(!note) return;
-    const newTitle = prompt("Edit title:", note.title);
-    if(newTitle !== null && newTitle.trim() !== "") note.title = newTitle.trim();
-    const newUrl = prompt("Paste your GitHub RAW image link (direct .jpg/.png/.gif URL):\nExample: https://raw.githubusercontent.com/username/repo/main/photo.jpg", note.imageUrl);
-    if(newUrl !== null && newUrl.trim() !== "") { note.imageUrl = newUrl.trim(); note.desc = "Click to enlarge"; }
+    if (!note) return;
+    const t = prompt("Edit title:", note.title);
+    if (t !== null && t.trim()) note.title = t.trim();
+    const u = prompt("Paste GitHub RAW image URL (direct .jpg/.png link):", note.imageUrl);
+    if (u !== null && u.trim()) { note.imageUrl = toRaw(u.trim()); note.desc = "Click to enlarge"; }
     saveData(); renderNotes(); showToast("Note updated!");
   }
+
   function addNewNote() {
     const title = prompt("Enter a title for this note:");
-    if(!title || title.trim() === "") return;
-    const imageLink = prompt("Paste your GitHub RAW image link (direct image URL):");
-    if(!imageLink || imageLink.trim() === "") { showToast("Image link required."); return; }
-    const newNote = { id: Date.now(), subject: currentSubject, title: title.trim(), imageUrl: imageLink.trim(), desc: "Click to enlarge" };
-    notesData.push(newNote); saveData(); renderNotes(); showToast("✅ New note added!");
+    if (!title || !title.trim()) return;
+    const rawUrl = prompt("Paste GitHub Raw image URL\n(e.g. https://raw.githubusercontent.com/…/image.jpg)\n\nBlob URLs will be auto-converted.");
+    if (!rawUrl || !rawUrl.trim()) { showToast("Image URL is required."); return; }
+    notesData.push({ id: Date.now(), subject: currentSubject, title: title.trim(), imageUrl: toRaw(rawUrl.trim()), desc: "Click to enlarge" });
+    saveData(); renderNotes(); showToast("✅ Note added!");
   }
 
-  const modal = document.getElementById("imageModal"), modalImg = document.getElementById("modalImage");
-  function openImageModal(src) { modalImg.src = src; modal.classList.add("active"); document.body.style.overflow = "hidden"; }
-  function closeImageModal() { modal.classList.remove("active"); document.body.style.overflow = ""; }
-  document.getElementById("closeImageModal").addEventListener("click", closeImageModal);
-  modal.addEventListener("click", (e) => { if(e.target === modal) closeImageModal(); });
-  function showToast(msg, dur=2500) { let t=document.createElement("div"); t.innerText=msg; t.style.cssText="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e1a2e;color:#fff;padding:10px 20px;border-radius:50px;font-size:0.85rem;z-index:3000;box-shadow:0 6px 12px rgba(0,0,0,0.2)"; document.body.appendChild(t); setTimeout(()=>t.remove(),dur); }
+  // ── Modal ──
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+  function openModal(src) { modalImg.src = src; modal.classList.add("active"); document.body.style.overflow = "hidden"; }
+  function closeModal() { modal.classList.remove("active"); document.body.style.overflow = ""; }
+  document.getElementById("closeImageModal").addEventListener("click", closeModal);
+  modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
-  document.querySelectorAll(".subject-btn").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll(".subject-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); currentSubject = btn.dataset.subj; renderNotes(); }); });
+  // ── Toast ──
+  let toastTimer;
+  function showToast(msg) {
+    const el = document.getElementById("toastEl");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove("show"), 2800);
+  }
+
+  // ── Subject tabs ──
+  document.querySelectorAll(".subject-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".subject-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentSubject = btn.dataset.subj;
+      renderNotes();
+    });
+  });
+
   document.getElementById("addNoteBtn").addEventListener("click", addNewNote);
-  
-  // ========== UPLOAD IMAGE (sends to email, shows "reviewed by admin" message) ==========
-  const fileInput = document.getElementById("fileUploadInput");
-  const uploadBtn = document.getElementById("uploadFileBtn");
+
+  // ── Upload via ImgBB ──
+  const IMGBB_KEY = "39b5590e3585c6c22b60701b36155d3b";
+  const fileInput  = document.getElementById("fileUploadInput");
+  const uploadBtn  = document.getElementById("uploadFileBtn");
   const uploadStatus = document.getElementById("uploadStatus");
-  const previewImg = document.getElementById("uploadPreviewImg");
+  const previewImg   = document.getElementById("uploadPreviewImg");
   const fileNameSpan = document.getElementById("uploadFileName");
   let selectedFile = null;
-  fileInput.addEventListener("change", (e) => {
+
+  fileInput.addEventListener("change", e => {
     const file = e.target.files[0];
-    if(!file) return;
+    if (!file) return;
     selectedFile = file;
     const reader = new FileReader();
-    reader.onload = (ev) => { previewImg.src = ev.target.result; previewImg.style.display = "block"; fileNameSpan.textContent = file.name; };
+    reader.onload = ev => { previewImg.src = ev.target.result; previewImg.style.display = "block"; fileNameSpan.textContent = file.name; };
     reader.readAsDataURL(file);
   });
+
   uploadBtn.addEventListener("click", async () => {
-    if(!selectedFile) { fileInput.click(); return; }
-    uploadStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Uploading...';
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-    formData.append("key", IMGBB_API_KEY);
+    if (!selectedFile) { fileInput.click(); return; }
+    uploadStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Uploading…';
+    const fd = new FormData();
+    fd.append("image", selectedFile);
+    fd.append("key", IMGBB_KEY);
     try {
-      const imgbbRes = await fetch("https://api.imgbb.com/1/upload", { method: "POST", body: formData });
-      const imgbbData = await imgbbRes.json();
-      if (!imgbbData.success) throw new Error("ImgBB upload failed");
-      const imageUrl = imgbbData.data.url;
-      const emailPayload = {
-        name: "Class12_Student",
-        message: `📸 A student uploaded an image for **${currentSubject.toUpperCase()}** subject.\n\n🖼️ **Direct Image Link:**\n${imageUrl}\n\n📁 Original file: ${selectedFile.name}\n📦 Size: ${(selectedFile.size/1024).toFixed(2)} KB\n\n✅ You can use this link in NOTESHUBS.`,
-        _subject: `📖 NOTESHUBS: New Image Upload - ${selectedFile.name}`,
-        _captcha: "false",
-        _template: "table"
-      };
+      const res  = await fetch("https://api.imgbb.com/1/upload", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!data.success) throw new Error("ImgBB failed");
+      const imageUrl = data.data.url;
       await fetch("https://formsubmit.co/ajax/sammanlamsal31@gmail.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(emailPayload)
+        body: JSON.stringify({
+          name: "Class12_Student",
+          message: `New image uploaded for ${currentSubject.toUpperCase()}.\n\nLink: ${imageUrl}\nFile: ${selectedFile.name}\nSize: ${(selectedFile.size/1024).toFixed(2)} KB`,
+          _subject: `NOTESHUBS Upload – ${selectedFile.name}`,
+          _captcha: "false",
+          _template: "table"
+        })
       });
-      uploadStatus.innerHTML = '✅ File uploaded! Will be reviewed by the admin soon.';
-      setTimeout(() => uploadStatus.innerHTML = '', 6000);
+      uploadStatus.innerHTML = "✅ Uploaded! Admin will review soon.";
+      setTimeout(() => uploadStatus.innerHTML = "", 6000);
       previewImg.style.display = "none";
       fileNameSpan.textContent = "";
       selectedFile = null;
       fileInput.value = "";
-      showToast("📤 Uploaded! Admin will review.");
-    } catch(err) {
-      console.error(err);
-      uploadStatus.innerHTML = '❌ Upload failed. Try again with a smaller image.';
-      setTimeout(() => uploadStatus.innerHTML = '', 4000);
-      showToast("Upload error. Please try again later.");
+      showToast("📤 Sent to admin for review!");
+    } catch (err) {
+      uploadStatus.innerHTML = "❌ Upload failed. Try a smaller image.";
+      setTimeout(() => uploadStatus.innerHTML = "", 4000);
+      showToast("Upload error – please try again.");
     }
   });
-  
+
   renderNotes();
 </script>
 </body>
