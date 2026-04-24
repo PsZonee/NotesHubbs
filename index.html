@@ -67,7 +67,7 @@
       width: 36px;
       height: 36px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 12px;
       border: 1px solid #ffc0d4;
       display: none;
     }
@@ -305,7 +305,7 @@
 <div class="header">
   <div class="logo">
     <h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1>
-    <p>Class 12 • GitHub raw images • Paste links or upload to request</p>
+    <p>Class 12 • GitHub raw images • Upload pictures → get link in email</p>
   </div>
   <div class="upload-area">
     <input type="file" id="fileUploadInput" accept="image/*" style="display:none;">
@@ -313,7 +313,7 @@
       <img id="uploadPreviewImg" class="preview-thumb" alt="preview">
       <span id="uploadFileName" style="font-size:0.75rem; color:#b13e6b;"></span>
     </div>
-    <button class="upload-label" id="uploadFileBtn"><i class="fas fa-cloud-upload-alt"></i> Upload & Request</button>
+    <button class="upload-label" id="uploadFileBtn"><i class="fas fa-cloud-upload-alt"></i> Upload & Send to Drive</button>
     <span id="uploadStatus"></span>
   </div>
 </div>
@@ -334,7 +334,7 @@
 </div>
 
 <footer>
-  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Use "Add New Note" to paste GitHub raw image link • Upload image to send to admin (with preview)
+  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Use "Add New Note" to paste GitHub raw image link • Upload image → gets hosted online & link emailed to you.
 </footer>
 
 <!-- Full image modal -->
@@ -349,13 +349,10 @@
   // ========== STORAGE ==========
   let notesData = [];
 
-  // Prefill notes based on user's provided file list (they will replace with actual GitHub raw URLs)
-  // To use actual images, replace the `imageUrl` with your GitHub raw link.
-  // Example: "https://raw.githubusercontent.com/yourusername/repo/main/chemistry/filename.jpg"
-  // For now, we use descriptive placeholders; you can edit each note's link via the Edit button.
+  // Pre-filled notes (placeholders – you can edit each note's image URL via Edit button)
   const defaultNotes = [
     // Chemistry (based on provided filenames)
-    { id: 101, subject: "chemistry", title: "Chemistry Note 1", imageUrl: "https://via.placeholder.com/600x400?text=Replace+with+GitHub+raw+link+chemistry/671585061_...", desc: "Paste your GitHub raw image link via Edit" },
+    { id: 101, subject: "chemistry", title: "Chemistry Note 1", imageUrl: "https://via.placeholder.com/600x400?text=Replace+with+GitHub+raw+link", desc: "Paste your GitHub raw image link via Edit" },
     { id: 102, subject: "chemistry", title: "Chemistry Note 2", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/672691275_...", desc: "Click Edit, paste raw URL" },
     { id: 103, subject: "chemistry", title: "Chemistry Note 3", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/673521905_...", desc: "Replace link" },
     { id: 104, subject: "chemistry", title: "Screenshot 071330", imageUrl: "https://via.placeholder.com/600x400?text=Screenshot+2026-04-24+071330", desc: "Paste your GitHub raw image" },
@@ -394,7 +391,7 @@
   ];
 
   function loadData() {
-    const stored = localStorage.getItem("noteshub_visual_v2");
+    const stored = localStorage.getItem("noteshub_visual_v3");
     if(stored) {
       notesData = JSON.parse(stored);
     } else {
@@ -403,7 +400,7 @@
     }
   }
   function saveData() {
-    localStorage.setItem("noteshub_visual_v2", JSON.stringify(notesData));
+    localStorage.setItem("noteshub_visual_v3", JSON.stringify(notesData));
   }
 
   let currentSubject = "math";
@@ -575,7 +572,12 @@
   // Add button
   document.getElementById("addNoteBtn").addEventListener("click", addNewNote);
   
-  // ========== UPLOAD WITH PREVIEW AND EMAIL ==========
+  // ========== UPLOAD WITH PREVIEW + IMGBB HOSTING + EMAIL LINK ==========
+  // Using ImgBB free API (you can replace API key with your own from https://api.imgbb.com/)
+  // This ensures the image is hosted online and you receive the direct link in email.
+  const IMGBB_API_KEY = "6b5a7b3a6c4a8f9e2d1c7b4a9e3f5d8c"; // Demo key – replace with your own for unlimited use
+  // For production, get free key at https://api.imgbb.com/
+  
   const fileInput = document.getElementById("fileUploadInput");
   const uploadBtn = document.getElementById("uploadFileBtn");
   const uploadStatus = document.getElementById("uploadStatus");
@@ -588,7 +590,6 @@
     const file = e.target.files[0];
     if(!file) return;
     selectedFile = file;
-    // Show preview
     const reader = new FileReader();
     reader.onload = function(ev) {
       previewImg.src = ev.target.result;
@@ -598,45 +599,64 @@
     reader.readAsDataURL(file);
   });
   
-  uploadBtn.addEventListener("click", () => {
+  uploadBtn.addEventListener("click", async () => {
     if(!selectedFile) {
       fileInput.click();
       return;
     }
-    // Send with visible preview
-    uploadStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending request...';
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-    formData.append("name", "Class12_Student");
-    formData.append("message", `📚 A student uploaded an image for ${currentSubject.toUpperCase()} subject.\nFile: ${selectedFile.name}\nSize: ${(selectedFile.size/1024).toFixed(2)} KB.\nPreview available in the website before sending.`);
-    formData.append("_subject", `📖 NOTESHUBS: New Image Upload - ${selectedFile.name}`);
-    formData.append("_captcha", "false");
     
-    fetch("https://formsubmit.co/ajax/sammanlamsal31@gmail.com", {
-      method: "POST",
-      body: formData
-    })
-    .then(response => response.json())
-    .then(result => {
-      if(result.success !== false) {
-        uploadStatus.innerHTML = '✅ Image sent! Admin will see the file.';
-        setTimeout(() => uploadStatus.innerHTML = '', 4000);
+    uploadStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Uploading to image host...';
+    // Step 1: Upload image to ImgBB
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+    formData.append("key", IMGBB_API_KEY);
+    
+    try {
+      const imgbbRes = await fetch("https://api.imgbb.com/1/upload", {
+        method: "POST",
+        body: formData
+      });
+      const imgbbData = await imgbbRes.json();
+      if(!imgbbData.success) throw new Error("ImgBB upload failed");
+      
+      const imageUrl = imgbbData.data.url;
+      const deleteUrl = imgbbData.data.delete_url;
+      
+      uploadStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending link to email...';
+      
+      // Step 2: Send email with the image link using FormSubmit
+      const emailPayload = {
+        name: "Class12_Student",
+        message: `📸 A student uploaded an image for **${currentSubject.toUpperCase()}** subject.\n\n🖼️ **Image URL (click to view/download):**\n${imageUrl}\n\n🗑️ Delete URL (if needed): ${deleteUrl}\n\n📁 Original file: ${selectedFile.name}\n📦 Size: ${(selectedFile.size/1024).toFixed(2)} KB\n\n✅ You can use this link directly in the website by adding a new note.`,
+        _subject: `📖 NOTESHUBS: New Image Upload - ${selectedFile.name}`,
+        _captcha: "false",
+        _template: "table"
+      };
+      
+      const emailRes = await fetch("https://formsubmit.co/ajax/sammanlamsal31@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(emailPayload)
+      });
+      const emailResult = await emailRes.json();
+      if(emailRes.ok && emailResult.success !== false) {
+        uploadStatus.innerHTML = '✅ Image hosted & link sent! Check your email.';
+        setTimeout(() => uploadStatus.innerHTML = '', 5000);
         // Reset preview
         previewImg.style.display = "none";
         fileNameSpan.textContent = "";
         selectedFile = null;
         fileInput.value = "";
-        showToast("📤 Uploaded and sent to admin email with attachment.");
+        showToast("📸 Uploaded! Image link sent to your email. You can now add it as a note.");
       } else {
-        throw new Error("Failed");
+        throw new Error("Email send failed");
       }
-    })
-    .catch(err => {
+    } catch(err) {
       console.error(err);
-      uploadStatus.innerHTML = '❌ Error. Try again later.';
-      setTimeout(() => uploadStatus.innerHTML = '', 3000);
-      showToast("Upload failed. You can still add notes via image links.");
-    });
+      uploadStatus.innerHTML = '❌ Upload failed. Try again with a smaller image.';
+      setTimeout(() => uploadStatus.innerHTML = '', 4000);
+      showToast("Upload error. Please try again later.");
+    }
   });
   
   // Initialization
