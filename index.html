@@ -299,7 +299,7 @@
 <div class="header">
   <div class="logo">
     <h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1>
-    <p>Class 12 • Click 'Edit' to paste your GitHub raw image link</p>
+    <p>Class 12 • GitHub raw images • Upload & share notes</p>
   </div>
   <div class="upload-area">
     <input type="file" id="fileUploadInput" accept="image/*" style="display:none;">
@@ -328,7 +328,7 @@
 </div>
 
 <footer>
-  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Edit note to replace placeholder with your actual GitHub raw image link.
+  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Use "Add New Note" to paste GitHub raw image link.
 </footer>
 
 <div id="imageModal" class="modal-overlay">
@@ -342,45 +342,44 @@
   // ========== IMGBB API KEY ==========
   const IMGBB_API_KEY = "39b5590e3585c6c22b60701b36155d3b";
   
-  // ========== NOTES DATABASE (with your exact filenames as placeholders) ==========
+  // ========== NOTES DATA (with your actual GitHub raw links) ==========
   let notesData = [
-    // Chemistry
-    { id: 1, subject: "chemistry", title: "Chemistry 671585061", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/671585061_122109315255283911_3156911350345947087_n.jpg", desc: "Click Edit → paste GitHub raw link" },
-    { id: 2, subject: "chemistry", title: "Chemistry 672691275", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/672691275_122109315249283911_6691752846088755241_n.jpg", desc: "Edit to add real image" },
-    { id: 3, subject: "chemistry", title: "Chemistry 673521905", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/673521905_122109315291283911_4029575501920899533_n.jpg", desc: "Replace placeholder" },
-    { id: 4, subject: "chemistry", title: "Screenshot 071330", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071330.png", desc: "Paste GitHub raw link" },
-    { id: 5, subject: "chemistry", title: "Screenshot 071336", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071336.png", desc: "Edit to add URL" },
-    { id: 6, subject: "chemistry", title: "Screenshot 071344", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071344.png", desc: "Replace link" },
-    { id: 7, subject: "chemistry", title: "Screenshot 071351", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071351.png", desc: "Edit to add real image" },
-    { id: 8, subject: "chemistry", title: "Screenshot 071357", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071357.png", desc: "Paste your GitHub raw link" },
-    { id: 9, subject: "chemistry", title: "Screenshot 071403", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071403.png", desc: "Click Edit" },
-    { id: 10, subject: "chemistry", title: "Screenshot 071411", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071411.png", desc: "Replace link" },
-    { id: 11, subject: "chemistry", title: "Screenshot 071418", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071418.png", desc: "Edit to add URL" },
+    // Chemistry (based on your provided permalinks)
+    { id: 1, subject: "chemistry", title: "Chemistry 671585061", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/671585061_122109315255283911_3156911350345947087_n.jpg", desc: "Click to enlarge" },
+    { id: 2, subject: "chemistry", title: "Chemistry 672691275", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/672691275_122109315249283911_6691752846088755241_n.jpg", desc: "Click to enlarge" },
+    { id: 3, subject: "chemistry", title: "Chemistry 673521905", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/673521905_122109315291283911_4029575501920899533_n.jpg", desc: "Click to enlarge" },
+    { id: 4, subject: "chemistry", title: "Screenshot 071330", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071330.png", desc: "Click to enlarge" },
+    { id: 5, subject: "chemistry", title: "Screenshot 071336", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071336.png", desc: "Click to enlarge" },
+    { id: 6, subject: "chemistry", title: "Screenshot 071344", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071344.png", desc: "Click to enlarge" },
+    { id: 7, subject: "chemistry", title: "Screenshot 071351", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071351.png", desc: "Click to enlarge" },
+    { id: 8, subject: "chemistry", title: "Screenshot 071357", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071357.png", desc: "Click to enlarge" },
+    { id: 9, subject: "chemistry", title: "Screenshot 071403", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071403.png", desc: "Click to enlarge" },
+    { id: 10, subject: "chemistry", title: "Screenshot 071411", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071411.png", desc: "Click to enlarge" },
+    { id: 11, subject: "chemistry", title: "Screenshot 071418", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071418.png", desc: "Click to enlarge" },
+    { id: 12, subject: "chemistry", title: "Screenshot 071426", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071426.png", desc: "Click to enlarge" },
     // Mathematics
-    { id: 12, subject: "math", title: "Math 667987983", imageUrl: "https://via.placeholder.com/600x400?text=Math/667987983_122228570132326428_659498413692828923_n.jpg", desc: "Edit → paste GitHub raw link" },
-    { id: 13, subject: "math", title: "Math 673640429", imageUrl: "https://via.placeholder.com/600x400?text=Math/673640429_122230037078326428_8201432397743733965_n.jpg", desc: "Replace placeholder" },
-    { id: 14, subject: "math", title: "Math 674203845", imageUrl: "https://via.placeholder.com/600x400?text=Math/674203845_122230151576326428_2659184455978490793_n.jpg", desc: "Paste your URL" },
-    { id: 15, subject: "math", title: "Math 674444166", imageUrl: "https://via.placeholder.com/600x400?text=Math/674444166_122230037168326428_6467345128106203806_n.jpg", desc: "Edit to add image" },
-    { id: 16, subject: "math", title: "Math 675190078", imageUrl: "https://via.placeholder.com/600x400?text=Math/675190078_122230151534326428_8741963825995436161_n.jpg", desc: "Replace with GitHub raw" },
-    { id: 17, subject: "math", title: "Math 675578771", imageUrl: "https://via.placeholder.com/600x400?text=Math/675578771_122230151618326428_2117698523574390344_n.jpg", desc: "Click Edit" },
-    { id: 18, subject: "math", title: "Math 676923152", imageUrl: "https://via.placeholder.com/600x400?text=Math/676923152_122230037126326428_5555090164868953875_n.jpg", desc: "Paste link" },
+    { id: 13, subject: "math", title: "Math 667987983", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/667987983_122228570132326428_659498413692828923_n.jpg", desc: "Click to enlarge" },
+    { id: 14, subject: "math", title: "Math 673640429", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/673640429_122230037078326428_8201432397743733965_n.jpg", desc: "Click to enlarge" },
+    { id: 15, subject: "math", title: "Math 674203845", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/674203845_122230151576326428_2659184455978490793_n.jpg", desc: "Click to enlarge" },
+    { id: 16, subject: "math", title: "Math 674444166", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/674444166_122230037168326428_6467345128106203806_n.jpg", desc: "Click to enlarge" },
+    { id: 17, subject: "math", title: "Math 675190078", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/675190078_122230151534326428_8741963825995436161_n.jpg", desc: "Click to enlarge" },
+    { id: 18, subject: "math", title: "Math 675578771", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/675578771_122230151618326428_2117698523574390344_n.jpg", desc: "Click to enlarge" },
+    { id: 19, subject: "math", title: "Math 676923152", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/676923152_122230037126326428_5555090164868953875_n.jpg", desc: "Click to enlarge" },
     // Physics
-    { id: 19, subject: "physics", title: "Physics 668556295", imageUrl: "https://via.placeholder.com/600x400?text=physics/668556295_122229217736326428_5800344575183112312_n.jpg", desc: "Edit → paste GitHub raw link" },
-    { id: 20, subject: "physics", title: "Physics 668984038", imageUrl: "https://via.placeholder.com/600x400?text=physics/668984038_122229217604326428_5132577566145805611_n.jpg", desc: "Replace placeholder" },
-    { id: 21, subject: "physics", title: "Physics 669388747", imageUrl: "https://via.placeholder.com/600x400?text=physics/669388747_122229217646326428_8455232024208187568_n.jpg", desc: "Add URL" },
-    { id: 22, subject: "physics", title: "Physics 669852976", imageUrl: "https://via.placeholder.com/600x400?text=physics/669852976_122229217562326428_5489529908280898506_n.jpg", desc: "Edit" },
-    { id: 23, subject: "physics", title: "Physics 670503463", imageUrl: "https://via.placeholder.com/600x400?text=physics/670503463_122229217694326428_129556564390315859_n.jpg", desc: "Paste raw link" },
-    { id: 24, subject: "physics", title: "Physics 671831426", imageUrl: "https://via.placeholder.com/600x400?text=physics/671831426_122229899888326428_4331728191937438986_n.jpg", desc: "Replace" },
-    { id: 25, subject: "physics", title: "Physics 674059450", imageUrl: "https://via.placeholder.com/600x400?text=physics/674059450_122229899840326428_1849670502064263688_n.jpg", desc: "Edit to add URL" },
-    { id: 26, subject: "physics", title: "Physics 676838556", imageUrl: "https://via.placeholder.com/600x400?text=physics/676838556_122199786338520585_7280878525199820986_n.jpg", desc: "Click Edit" },
-    { id: 27, subject: "physics", title: "Physics 676923357", imageUrl: "https://via.placeholder.com/600x400?text=physics/676923357_122199786146520585_8416927790836267373_n+%281%29.jpg", desc: "Paste your link" },
+    { id: 20, subject: "physics", title: "Physics 668556295", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/668556295_122229217736326428_5800344575183112312_n.jpg", desc: "Click to enlarge" },
+    { id: 21, subject: "physics", title: "Physics 668984038", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/668984038_122229217604326428_5132577566145805611_n.jpg", desc: "Click to enlarge" },
+    { id: 22, subject: "physics", title: "Physics 669388747", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/669388747_122229217646326428_8455232024208187568_n.jpg", desc: "Click to enlarge" },
+    { id: 23, subject: "physics", title: "Physics 674059450", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/674059450_122229899840326428_1849670502064263688_n.jpg", desc: "Click to enlarge" },
+    { id: 24, subject: "physics", title: "Physics 676838556", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676838556_122199786338520585_7280878525199820986_n.jpg", desc: "Click to enlarge" },
+    { id: 25, subject: "physics", title: "Physics 676923357", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676923357_122199786146520585_8416927790836267373_n%20(1).jpg", desc: "Click to enlarge" },
+    { id: 26, subject: "physics", title: "Physics 678279199", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/678279199_122199786200520585_5662805947512732130_n%20(1).jpg", desc: "Click to enlarge" },
     // English
-    { id: 28, subject: "english", title: "English 071717", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071717.png", desc: "Edit → paste GitHub raw link" },
-    { id: 29, subject: "english", title: "English 071726", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071726.png", desc: "Replace placeholder" },
-    { id: 30, subject: "english", title: "English 071733", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071733.png", desc: "Add URL" },
-    { id: 31, subject: "english", title: "English 071738", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071738.png", desc: "Edit" },
-    { id: 32, subject: "english", title: "English 071744", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071744.png", desc: "Paste raw link" },
-    { id: 33, subject: "english", title: "English 071751", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071751.png", desc: "Replace" },
+    { id: 27, subject: "english", title: "English 071717", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071717.png", desc: "Click to enlarge" },
+    { id: 28, subject: "english", title: "English 071726", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071726.png", desc: "Click to enlarge" },
+    { id: 29, subject: "english", title: "English 071733", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071733.png", desc: "Click to enlarge" },
+    { id: 30, subject: "english", title: "English 071738", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071738.png", desc: "Click to enlarge" },
+    { id: 31, subject: "english", title: "English 071744", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071744.png", desc: "Click to enlarge" },
+    { id: 32, subject: "english", title: "English 071751", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071751.png", desc: "Click to enlarge" },
   ];
 
   function saveData() {
@@ -428,7 +427,7 @@
         if(e.target.closest('.edit-btn') || e.target.closest('.delete-btn')) return;
         const src = img.getAttribute('src');
         if(src && !src.includes('placeholder') && !src.includes('Invalid+Link')) openImageModal(src);
-        else showToast("Click Edit to paste a valid GitHub raw image URL.", 3000);
+        else showToast("Invalid image link. Use Edit to paste a valid GitHub raw image URL.", 3000);
       });
     });
     document.querySelectorAll('.edit-btn').forEach(btn => {
@@ -446,7 +445,7 @@
     const newTitle = prompt("Edit title:", note.title);
     if(newTitle !== null && newTitle.trim() !== "") note.title = newTitle.trim();
     const newUrl = prompt("Paste your GitHub RAW image link (direct .jpg/.png/.gif URL):\nExample: https://raw.githubusercontent.com/username/repo/main/photo.jpg", note.imageUrl);
-    if(newUrl !== null && newUrl.trim() !== "") { note.imageUrl = newUrl.trim(); note.desc = "GitHub raw image – click to enlarge"; }
+    if(newUrl !== null && newUrl.trim() !== "") { note.imageUrl = newUrl.trim(); note.desc = "Click to enlarge"; }
     saveData(); renderNotes(); showToast("Note updated!");
   }
   function addNewNote() {
@@ -454,7 +453,7 @@
     if(!title || title.trim() === "") return;
     const imageLink = prompt("Paste your GitHub RAW image link (direct image URL):");
     if(!imageLink || imageLink.trim() === "") { showToast("Image link required."); return; }
-    const newNote = { id: Date.now(), subject: currentSubject, title: title.trim(), imageUrl: imageLink.trim(), desc: "Click to enlarge • GitHub raw image" };
+    const newNote = { id: Date.now(), subject: currentSubject, title: title.trim(), imageUrl: imageLink.trim(), desc: "Click to enlarge" };
     notesData.push(newNote); saveData(); renderNotes(); showToast("✅ New note added!");
   }
 
@@ -506,7 +505,6 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(emailPayload)
       });
-      // Show the admin review message
       uploadStatus.innerHTML = '✅ File uploaded! Will be reviewed by the admin soon.';
       setTimeout(() => uploadStatus.innerHTML = '', 6000);
       previewImg.style.display = "none";
