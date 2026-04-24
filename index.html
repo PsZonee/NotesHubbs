@@ -299,7 +299,7 @@
 <div class="header">
   <div class="logo">
     <h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1>
-    <p>Class 12 • Paste GitHub raw links • Upload image → Get link in email</p>
+    <p>Class 12 • Click 'Edit' to paste your GitHub raw image link</p>
   </div>
   <div class="upload-area">
     <input type="file" id="fileUploadInput" accept="image/*" style="display:none;">
@@ -307,7 +307,7 @@
       <img id="uploadPreviewImg" class="preview-thumb" alt="preview">
       <span id="uploadFileName" style="font-size:0.75rem; color:#b13e6b;"></span>
     </div>
-    <button class="upload-label" id="uploadFileBtn"><i class="fas fa-cloud-upload-alt"></i> Upload & Get Link</button>
+    <button class="upload-label" id="uploadFileBtn"><i class="fas fa-cloud-upload-alt"></i> Upload Note</button>
     <span id="uploadStatus"></span>
   </div>
 </div>
@@ -328,7 +328,7 @@
 </div>
 
 <footer>
-  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Add note with GitHub raw link • Upload uses your ImgBB account
+  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Edit note to replace placeholder with your actual GitHub raw image link.
 </footer>
 
 <div id="imageModal" class="modal-overlay">
@@ -339,60 +339,72 @@
 </div>
 
 <script>
-  // ========== YOUR IMGBB API KEY (directly integrated) ==========
+  // ========== IMGBB API KEY ==========
   const IMGBB_API_KEY = "39b5590e3585c6c22b60701b36155d3b";
   
-  // ========== NOTES STORAGE ==========
-  let notesData = [];
-  const defaultNotes = [
-    { id: 101, subject: "chemistry", title: "Chemistry Note 1", imageUrl: "https://via.placeholder.com/600x400?text=Replace+with+GitHub+raw+link", desc: "Paste your GitHub raw image link via Edit" },
-    { id: 102, subject: "chemistry", title: "Chemistry Note 2", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/672691275", desc: "Click Edit, paste raw URL" },
-    { id: 103, subject: "chemistry", title: "Chemistry Note 3", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/673521905", desc: "Replace link" },
-    { id: 104, subject: "chemistry", title: "Screenshot 071330", imageUrl: "https://via.placeholder.com/600x400?text=Screenshot+2026-04-24+071330", desc: "Paste your GitHub raw image" },
-    { id: 105, subject: "chemistry", title: "Screenshot 071336", imageUrl: "https://via.placeholder.com/600x400?text=Screenshot+071336", desc: "Add your own link" },
-    { id: 106, subject: "chemistry", title: "Screenshot 071344", imageUrl: "https://via.placeholder.com/600x400?text=Screenshot+071344", desc: "Edit to add URL" },
-    { id: 107, subject: "chemistry", title: "Screenshot 071351", imageUrl: "https://via.placeholder.com/600x400?text=Screenshot+071351", desc: "Replace with GitHub raw" },
-    { id: 108, subject: "chemistry", title: "Screenshot 071357", imageUrl: "https://via.placeholder.com/600x400?text=Screenshot+071357", desc: "Paste link" },
-    { id: 109, subject: "chemistry", title: "Screenshot 071403", imageUrl: "https://via.placeholder.com/600x400?text=Screenshot+071403", desc: "Edit" },
-    { id: 110, subject: "chemistry", title: "Screenshot 071411", imageUrl: "https://via.placeholder.com/600x400?text=Screenshot+071411", desc: "Edit to add URL" },
-    { id: 111, subject: "chemistry", title: "Screenshot 071418", imageUrl: "https://via.placeholder.com/600x400?text=Screenshot+071418", desc: "Paste raw link" },
-    { id: 201, subject: "math", title: "Math 667987983", imageUrl: "https://via.placeholder.com/600x400?text=Math+667987983", desc: "Replace with GitHub raw link" },
-    { id: 202, subject: "math", title: "Math 673640429", imageUrl: "https://via.placeholder.com/600x400?text=Math+673640429", desc: "Edit → paste URL" },
-    { id: 203, subject: "math", title: "Math 674203845", imageUrl: "https://via.placeholder.com/600x400?text=Math+674203845", desc: "Add your link" },
-    { id: 204, subject: "math", title: "Math 674444166", imageUrl: "https://via.placeholder.com/600x400?text=Math+674444166", desc: "Paste raw GitHub image" },
-    { id: 205, subject: "math", title: "Math 675190078", imageUrl: "https://via.placeholder.com/600x400?text=Math+675190078", desc: "Edit to add" },
-    { id: 206, subject: "math", title: "Math 675578771", imageUrl: "https://via.placeholder.com/600x400?text=Math+675578771", desc: "Replace link" },
-    { id: 207, subject: "math", title: "Math 676923152", imageUrl: "https://via.placeholder.com/600x400?text=Math+676923152", desc: "Paste your URL" },
-    { id: 301, subject: "physics", title: "Physics 668556295", imageUrl: "https://via.placeholder.com/600x400?text=Physics+668556295", desc: "Replace" },
-    { id: 302, subject: "physics", title: "Physics 668984038", imageUrl: "https://via.placeholder.com/600x400?text=Physics+668984038", desc: "Edit" },
-    { id: 303, subject: "physics", title: "Physics 669388747", imageUrl: "https://via.placeholder.com/600x400?text=Physics+669388747", desc: "Add link" },
-    { id: 304, subject: "physics", title: "Physics 669852976", imageUrl: "https://via.placeholder.com/600x400?text=Physics+669852976", desc: "Paste raw" },
-    { id: 305, subject: "physics", title: "Physics 670503463", imageUrl: "https://via.placeholder.com/600x400?text=Physics+670503463", desc: "Edit" },
-    { id: 306, subject: "physics", title: "Physics 671831426", imageUrl: "https://via.placeholder.com/600x400?text=Physics+671831426", desc: "Replace" },
-    { id: 307, subject: "physics", title: "Physics 674059450", imageUrl: "https://via.placeholder.com/600x400?text=Physics+674059450", desc: "Add URL" },
-    { id: 308, subject: "physics", title: "Physics 676838556", imageUrl: "https://via.placeholder.com/600x400?text=Physics+676838556", desc: "Paste link" },
-    { id: 309, subject: "physics", title: "Physics 676923357", imageUrl: "https://via.placeholder.com/600x400?text=Physics+676923357", desc: "Edit" },
-    { id: 401, subject: "english", title: "English 071717", imageUrl: "https://via.placeholder.com/600x400?text=English+071717", desc: "Replace with GitHub raw" },
-    { id: 402, subject: "english", title: "English 071726", imageUrl: "https://via.placeholder.com/600x400?text=English+071726", desc: "Edit" },
-    { id: 403, subject: "english", title: "English 071733", imageUrl: "https://via.placeholder.com/600x400?text=English+071733", desc: "Add link" },
-    { id: 404, subject: "english", title: "English 071738", imageUrl: "https://via.placeholder.com/600x400?text=English+071738", desc: "Paste raw" },
-    { id: 405, subject: "english", title: "English 071744", imageUrl: "https://via.placeholder.com/600x400?text=English+071744", desc: "Edit" },
-    { id: 406, subject: "english", title: "English 071751", imageUrl: "https://via.placeholder.com/600x400?text=English+071751", desc: "Replace" },
+  // ========== NOTES DATABASE (with your exact filenames as placeholders) ==========
+  let notesData = [
+    // Chemistry
+    { id: 1, subject: "chemistry", title: "Chemistry 671585061", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/671585061_122109315255283911_3156911350345947087_n.jpg", desc: "Click Edit → paste GitHub raw link" },
+    { id: 2, subject: "chemistry", title: "Chemistry 672691275", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/672691275_122109315249283911_6691752846088755241_n.jpg", desc: "Edit to add real image" },
+    { id: 3, subject: "chemistry", title: "Chemistry 673521905", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/673521905_122109315291283911_4029575501920899533_n.jpg", desc: "Replace placeholder" },
+    { id: 4, subject: "chemistry", title: "Screenshot 071330", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071330.png", desc: "Paste GitHub raw link" },
+    { id: 5, subject: "chemistry", title: "Screenshot 071336", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071336.png", desc: "Edit to add URL" },
+    { id: 6, subject: "chemistry", title: "Screenshot 071344", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071344.png", desc: "Replace link" },
+    { id: 7, subject: "chemistry", title: "Screenshot 071351", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071351.png", desc: "Edit to add real image" },
+    { id: 8, subject: "chemistry", title: "Screenshot 071357", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071357.png", desc: "Paste your GitHub raw link" },
+    { id: 9, subject: "chemistry", title: "Screenshot 071403", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071403.png", desc: "Click Edit" },
+    { id: 10, subject: "chemistry", title: "Screenshot 071411", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071411.png", desc: "Replace link" },
+    { id: 11, subject: "chemistry", title: "Screenshot 071418", imageUrl: "https://via.placeholder.com/600x400?text=chemistry/Screenshot+2026-04-24+071418.png", desc: "Edit to add URL" },
+    // Mathematics
+    { id: 12, subject: "math", title: "Math 667987983", imageUrl: "https://via.placeholder.com/600x400?text=Math/667987983_122228570132326428_659498413692828923_n.jpg", desc: "Edit → paste GitHub raw link" },
+    { id: 13, subject: "math", title: "Math 673640429", imageUrl: "https://via.placeholder.com/600x400?text=Math/673640429_122230037078326428_8201432397743733965_n.jpg", desc: "Replace placeholder" },
+    { id: 14, subject: "math", title: "Math 674203845", imageUrl: "https://via.placeholder.com/600x400?text=Math/674203845_122230151576326428_2659184455978490793_n.jpg", desc: "Paste your URL" },
+    { id: 15, subject: "math", title: "Math 674444166", imageUrl: "https://via.placeholder.com/600x400?text=Math/674444166_122230037168326428_6467345128106203806_n.jpg", desc: "Edit to add image" },
+    { id: 16, subject: "math", title: "Math 675190078", imageUrl: "https://via.placeholder.com/600x400?text=Math/675190078_122230151534326428_8741963825995436161_n.jpg", desc: "Replace with GitHub raw" },
+    { id: 17, subject: "math", title: "Math 675578771", imageUrl: "https://via.placeholder.com/600x400?text=Math/675578771_122230151618326428_2117698523574390344_n.jpg", desc: "Click Edit" },
+    { id: 18, subject: "math", title: "Math 676923152", imageUrl: "https://via.placeholder.com/600x400?text=Math/676923152_122230037126326428_5555090164868953875_n.jpg", desc: "Paste link" },
+    // Physics
+    { id: 19, subject: "physics", title: "Physics 668556295", imageUrl: "https://via.placeholder.com/600x400?text=physics/668556295_122229217736326428_5800344575183112312_n.jpg", desc: "Edit → paste GitHub raw link" },
+    { id: 20, subject: "physics", title: "Physics 668984038", imageUrl: "https://via.placeholder.com/600x400?text=physics/668984038_122229217604326428_5132577566145805611_n.jpg", desc: "Replace placeholder" },
+    { id: 21, subject: "physics", title: "Physics 669388747", imageUrl: "https://via.placeholder.com/600x400?text=physics/669388747_122229217646326428_8455232024208187568_n.jpg", desc: "Add URL" },
+    { id: 22, subject: "physics", title: "Physics 669852976", imageUrl: "https://via.placeholder.com/600x400?text=physics/669852976_122229217562326428_5489529908280898506_n.jpg", desc: "Edit" },
+    { id: 23, subject: "physics", title: "Physics 670503463", imageUrl: "https://via.placeholder.com/600x400?text=physics/670503463_122229217694326428_129556564390315859_n.jpg", desc: "Paste raw link" },
+    { id: 24, subject: "physics", title: "Physics 671831426", imageUrl: "https://via.placeholder.com/600x400?text=physics/671831426_122229899888326428_4331728191937438986_n.jpg", desc: "Replace" },
+    { id: 25, subject: "physics", title: "Physics 674059450", imageUrl: "https://via.placeholder.com/600x400?text=physics/674059450_122229899840326428_1849670502064263688_n.jpg", desc: "Edit to add URL" },
+    { id: 26, subject: "physics", title: "Physics 676838556", imageUrl: "https://via.placeholder.com/600x400?text=physics/676838556_122199786338520585_7280878525199820986_n.jpg", desc: "Click Edit" },
+    { id: 27, subject: "physics", title: "Physics 676923357", imageUrl: "https://via.placeholder.com/600x400?text=physics/676923357_122199786146520585_8416927790836267373_n+%281%29.jpg", desc: "Paste your link" },
+    // English
+    { id: 28, subject: "english", title: "English 071717", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071717.png", desc: "Edit → paste GitHub raw link" },
+    { id: 29, subject: "english", title: "English 071726", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071726.png", desc: "Replace placeholder" },
+    { id: 30, subject: "english", title: "English 071733", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071733.png", desc: "Add URL" },
+    { id: 31, subject: "english", title: "English 071738", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071738.png", desc: "Edit" },
+    { id: 32, subject: "english", title: "English 071744", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071744.png", desc: "Paste raw link" },
+    { id: 33, subject: "english", title: "English 071751", imageUrl: "https://via.placeholder.com/600x400?text=english/Screenshot+2026-04-24+071751.png", desc: "Replace" },
   ];
+
+  function saveData() {
+    localStorage.setItem("noteshub_visual_final", JSON.stringify(notesData));
+  }
   function loadData() {
     const stored = localStorage.getItem("noteshub_visual_final");
-    if(stored) notesData = JSON.parse(stored);
-    else { notesData = defaultNotes; saveData(); }
+    if(stored) {
+      notesData = JSON.parse(stored);
+    } else {
+      saveData();
+    }
   }
-  function saveData() { localStorage.setItem("noteshub_visual_final", JSON.stringify(notesData)); }
+  loadData();
+
   let currentSubject = "math";
+
   function renderNotes() {
     const filtered = notesData.filter(n => n.subject === currentSubject);
     const grid = document.getElementById("notesGrid");
     const titles = { math: "📐 Mathematics", physics: "⚛️ Physics", chemistry: "🧪 Chemistry", english: "📖 English" };
     document.getElementById("activeSubjectTitle").innerHTML = titles[currentSubject] || "Notes";
     if(filtered.length === 0) {
-      grid.innerHTML = `<div class="empty-message"><i class="fas fa-camera" style="font-size:2rem;"></i><p>No notes yet. Click "Add New Note" and paste your GitHub raw image link.</p></div>`;
+      grid.innerHTML = `<div class="empty-message"><i class="fas fa-camera" style="font-size:2rem;"></i><p>No notes yet. Click "Add New Note".</p></div>`;
       return;
     }
     grid.innerHTML = filtered.map(note => `
@@ -416,23 +428,24 @@
         if(e.target.closest('.edit-btn') || e.target.closest('.delete-btn')) return;
         const src = img.getAttribute('src');
         if(src && !src.includes('placeholder') && !src.includes('Invalid+Link')) openImageModal(src);
-        else showToast("Invalid image link. Use Edit to paste a valid GitHub raw image URL.", 3000);
+        else showToast("Click Edit to paste a valid GitHub raw image URL.", 3000);
       });
     });
     document.querySelectorAll('.edit-btn').forEach(btn => {
       btn.addEventListener('click', (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); editNoteById(id); });
     });
     document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); if(confirm("Delete?")) { notesData = notesData.filter(n => n.id !== id); saveData(); renderNotes(); showToast("Note deleted."); } });
+      btn.addEventListener('click', (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); if(confirm("Delete this note?")) { notesData = notesData.filter(n => n.id !== id); saveData(); renderNotes(); showToast("Note deleted."); } });
     });
   }
+
   function escapeHtml(str) { if(!str) return ""; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
   function editNoteById(id) {
     const note = notesData.find(n => n.id === id);
     if(!note) return;
     const newTitle = prompt("Edit title:", note.title);
     if(newTitle !== null && newTitle.trim() !== "") note.title = newTitle.trim();
-    const newUrl = prompt("Paste your GitHub RAW image link (direct .jpg/.png/.gif URL):", note.imageUrl);
+    const newUrl = prompt("Paste your GitHub RAW image link (direct .jpg/.png/.gif URL):\nExample: https://raw.githubusercontent.com/username/repo/main/photo.jpg", note.imageUrl);
     if(newUrl !== null && newUrl.trim() !== "") { note.imageUrl = newUrl.trim(); note.desc = "GitHub raw image – click to enlarge"; }
     saveData(); renderNotes(); showToast("Note updated!");
   }
@@ -444,16 +457,18 @@
     const newNote = { id: Date.now(), subject: currentSubject, title: title.trim(), imageUrl: imageLink.trim(), desc: "Click to enlarge • GitHub raw image" };
     notesData.push(newNote); saveData(); renderNotes(); showToast("✅ New note added!");
   }
+
   const modal = document.getElementById("imageModal"), modalImg = document.getElementById("modalImage");
   function openImageModal(src) { modalImg.src = src; modal.classList.add("active"); document.body.style.overflow = "hidden"; }
   function closeImageModal() { modal.classList.remove("active"); document.body.style.overflow = ""; }
   document.getElementById("closeImageModal").addEventListener("click", closeImageModal);
   modal.addEventListener("click", (e) => { if(e.target === modal) closeImageModal(); });
   function showToast(msg, dur=2500) { let t=document.createElement("div"); t.innerText=msg; t.style.cssText="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e1a2e;color:#fff;padding:10px 20px;border-radius:50px;font-size:0.85rem;z-index:3000;box-shadow:0 6px 12px rgba(0,0,0,0.2)"; document.body.appendChild(t); setTimeout(()=>t.remove(),dur); }
+
   document.querySelectorAll(".subject-btn").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll(".subject-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); currentSubject = btn.dataset.subj; renderNotes(); }); });
   document.getElementById("addNoteBtn").addEventListener("click", addNewNote);
   
-  // ========== UPLOAD WITH YOUR IMGBB KEY (NO MANUAL INPUT) ==========
+  // ========== UPLOAD IMAGE (sends to email, shows "reviewed by admin" message) ==========
   const fileInput = document.getElementById("fileUploadInput");
   const uploadBtn = document.getElementById("uploadFileBtn");
   const uploadStatus = document.getElementById("uploadStatus");
@@ -470,50 +485,43 @@
   });
   uploadBtn.addEventListener("click", async () => {
     if(!selectedFile) { fileInput.click(); return; }
-    uploadStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Uploading to ImgBB...';
+    uploadStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Uploading...';
     const formData = new FormData();
     formData.append("image", selectedFile);
     formData.append("key", IMGBB_API_KEY);
     try {
       const imgbbRes = await fetch("https://api.imgbb.com/1/upload", { method: "POST", body: formData });
       const imgbbData = await imgbbRes.json();
-      if (!imgbbData.success) throw new Error("ImgBB upload failed: " + (imgbbData.error?.message || "Unknown error"));
+      if (!imgbbData.success) throw new Error("ImgBB upload failed");
       const imageUrl = imgbbData.data.url;
-      const deleteUrl = imgbbData.data.delete_url;
-      uploadStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending link to email...';
       const emailPayload = {
         name: "Class12_Student",
-        message: `📸 A student uploaded an image for **${currentSubject.toUpperCase()}** subject.\n\n🖼️ **Direct Image Link (click to view/download):**\n${imageUrl}\n\n🗑️ Delete URL: ${deleteUrl}\n\n📁 Original file: ${selectedFile.name}\n📦 Size: ${(selectedFile.size/1024).toFixed(2)} KB\n\n✅ You can use this link directly in NOTESHUBS.`,
+        message: `📸 A student uploaded an image for **${currentSubject.toUpperCase()}** subject.\n\n🖼️ **Direct Image Link:**\n${imageUrl}\n\n📁 Original file: ${selectedFile.name}\n📦 Size: ${(selectedFile.size/1024).toFixed(2)} KB\n\n✅ You can use this link in NOTESHUBS.`,
         _subject: `📖 NOTESHUBS: New Image Upload - ${selectedFile.name}`,
         _captcha: "false",
         _template: "table"
       };
-      const emailRes = await fetch("https://formsubmit.co/ajax/sammanlamsal31@gmail.com", {
+      await fetch("https://formsubmit.co/ajax/sammanlamsal31@gmail.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(emailPayload)
       });
-      const emailResult = await emailRes.json();
-      if(emailRes.ok && emailResult.success !== false) {
-        uploadStatus.innerHTML = '✅ Image uploaded! Link sent to your email.';
-        setTimeout(() => uploadStatus.innerHTML = '', 5000);
-        previewImg.style.display = "none";
-        fileNameSpan.textContent = "";
-        selectedFile = null;
-        fileInput.value = "";
-        showToast("📸 Uploaded! Check your email for the image link.");
-      } else {
-        throw new Error("Email send failed");
-      }
+      // Show the admin review message
+      uploadStatus.innerHTML = '✅ File uploaded! Will be reviewed by the admin soon.';
+      setTimeout(() => uploadStatus.innerHTML = '', 6000);
+      previewImg.style.display = "none";
+      fileNameSpan.textContent = "";
+      selectedFile = null;
+      fileInput.value = "";
+      showToast("📤 Uploaded! Admin will review.");
     } catch(err) {
       console.error(err);
       uploadStatus.innerHTML = '❌ Upload failed. Try again with a smaller image.';
       setTimeout(() => uploadStatus.innerHTML = '', 4000);
-      showToast("Upload error: " + err.message);
+      showToast("Upload error. Please try again later.");
     }
   });
   
-  loadData();
   renderNotes();
 </script>
 </body>
