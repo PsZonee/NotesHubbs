@@ -55,18 +55,24 @@
       border: 1.5px solid #ffc0d4;
       flex-wrap: wrap;
     }
+    .upload-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
     .upload-preview {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      max-width: 200px;
+      max-width: 220px;
     }
     .preview-thumb {
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       object-fit: cover;
       border-radius: 12px;
-      border: 1px solid #ffc0d4;
+      border: 1.5px solid #ffc0d4;
+      background: white;
     }
     .upload-label {
       background: #e83e8c;
@@ -80,10 +86,17 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      border: none;
     }
     .upload-label:hover {
       background: #c72a74;
       transform: scale(0.97);
+    }
+    .camera-btn {
+      background: #4a6fa5;
+    }
+    .camera-btn:hover {
+      background: #3a5a85;
     }
     #uploadStatus {
       font-size: 0.75rem;
@@ -294,6 +307,9 @@
       .subjects-tab {
         justify-content: center;
       }
+      .upload-buttons {
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -302,12 +318,17 @@
 <div class="header">
   <div class="logo">
     <h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1>
-    <p>Class 12 • All notes loaded from GitHub • Upload multiple photos</p>
+    <p>Class 12 • All notes from GitHub • Works on mobile & laptop</p>
   </div>
   <div class="upload-area">
-    <input type="file" id="fileUploadInput" accept="image/*" multiple style="display:none;">
+    <div class="upload-buttons">
+      <input type="file" id="galleryInput" accept="image/*" multiple style="display:none;">
+      <input type="file" id="cameraInput" accept="image/*" capture style="display:none;">
+      <button class="upload-label" id="galleryBtn"><i class="fas fa-images"></i> From Gallery</button>
+      <button class="upload-label camera-btn" id="cameraBtn"><i class="fas fa-camera"></i> Take Photo</button>
+      <button class="upload-label" id="uploadBtn"><i class="fas fa-cloud-upload-alt"></i> Upload All</button>
+    </div>
     <div id="previewContainer" class="upload-preview"></div>
-    <button class="upload-label" id="uploadFileBtn"><i class="fas fa-cloud-upload-alt"></i> Upload Multiple</button>
     <span id="uploadStatus"></span>
   </div>
 </div>
@@ -328,7 +349,7 @@
 </div>
 
 <footer>
-  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Upload multiple images at once
+  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Upload photos (gallery or camera) – admin will review.
 </footer>
 
 <div id="imageModal" class="modal-overlay">
@@ -342,9 +363,8 @@
   // ========== IMGBB API KEY ==========
   const IMGBB_API_KEY = "39b5590e3585c6c22b60701b36155d3b";
   
-  // ========== NOTES DATA – ALL RAW IMAGE LINKS FROM GITHUB ==========
+  // ========== NOTES DATA – ALL RAW IMAGE LINKS FROM GITHUB (full list) ==========
   let notesData = [
-    // Chemistry
     { id: 1, subject: "chemistry", title: "Chemistry - 671585061", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/671585061_122109315255283911_3156911350345947087_n.jpg", desc: "Click to enlarge" },
     { id: 2, subject: "chemistry", title: "Chemistry - 672691275", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/672691275_122109315249283911_6691752846088755241_n.jpg", desc: "Click to enlarge" },
     { id: 3, subject: "chemistry", title: "Chemistry - 673521905", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/673521905_122109315291283911_4029575501920899533_n.jpg", desc: "Click to enlarge" },
@@ -357,7 +377,6 @@
     { id: 10, subject: "chemistry", title: "Screenshot 071411", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071411.png", desc: "Click to enlarge" },
     { id: 11, subject: "chemistry", title: "Screenshot 071418", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071418.png", desc: "Click to enlarge" },
     { id: 12, subject: "chemistry", title: "Screenshot 071426", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071426.png", desc: "Click to enlarge" },
-    // Mathematics
     { id: 13, subject: "math", title: "Math - 667987983", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/667987983_122228570132326428_659498413692828923_n.jpg", desc: "Click to enlarge" },
     { id: 14, subject: "math", title: "Math - 673640429", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/673640429_122230037078326428_8201432397743733965_n.jpg", desc: "Click to enlarge" },
     { id: 15, subject: "math", title: "Math - 674203845", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/674203845_122230151576326428_2659184455978490793_n.jpg", desc: "Click to enlarge" },
@@ -365,7 +384,6 @@
     { id: 17, subject: "math", title: "Math - 675190078", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/675190078_122230151534326428_8741963825995436161_n.jpg", desc: "Click to enlarge" },
     { id: 18, subject: "math", title: "Math - 675578771", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/675578771_122230151618326428_2117698523574390344_n.jpg", desc: "Click to enlarge" },
     { id: 19, subject: "math", title: "Math - 676923152", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/676923152_122230037126326428_5555090164868953875_n.jpg", desc: "Click to enlarge" },
-    // Physics
     { id: 20, subject: "physics", title: "Physics - 668556295", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/668556295_122229217736326428_5800344575183112312_n.jpg", desc: "Click to enlarge" },
     { id: 21, subject: "physics", title: "Physics - 668984038", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/668984038_122229217604326428_5132577566145805611_n.jpg", desc: "Click to enlarge" },
     { id: 22, subject: "physics", title: "Physics - 669388747", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/669388747_122229217646326428_8455232024208187568_n.jpg", desc: "Click to enlarge" },
@@ -373,7 +391,6 @@
     { id: 24, subject: "physics", title: "Physics - 676838556", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676838556_122199786338520585_7280878525199820986_n.jpg", desc: "Click to enlarge" },
     { id: 25, subject: "physics", title: "Physics - 676923357", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676923357_122199786146520585_8416927790836267373_n%20(1).jpg", desc: "Click to enlarge" },
     { id: 26, subject: "physics", title: "Physics - 678279199", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/678279199_122199786200520585_5662805947512732130_n%20(1).jpg", desc: "Click to enlarge" },
-    // English
     { id: 27, subject: "english", title: "English - 071717", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071717.png", desc: "Click to enlarge" },
     { id: 28, subject: "english", title: "English - 071726", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071726.png", desc: "Click to enlarge" },
     { id: 29, subject: "english", title: "English - 071733", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071733.png", desc: "Click to enlarge" },
@@ -408,7 +425,6 @@
         </div>
       </div>
     `).join("");
-    // Click to open image modal
     document.querySelectorAll('.note-card').forEach(card => {
       const img = card.querySelector('.card-img');
       card.addEventListener('click', (e) => {
@@ -418,7 +434,6 @@
         else showToast("Image could not be loaded. Please check the link.", 3000);
       });
     });
-    // Edit & delete handlers
     document.querySelectorAll('.edit-btn').forEach(btn => {
       btn.addEventListener('click', (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); editNoteById(id); });
     });
@@ -477,59 +492,86 @@
   document.querySelectorAll(".subject-btn").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll(".subject-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); currentSubject = btn.dataset.subj; renderNotes(); }); });
   document.getElementById("addNoteBtn").addEventListener("click", addNewNote);
   
-  // ========== MULTIPLE FILE UPLOAD ==========
-  const fileInput = document.getElementById("fileUploadInput");
-  const uploadBtn = document.getElementById("uploadFileBtn");
+  // ========== CROSS-PLATFORM CAMERA & GALLERY (WORKS ON MOBILE & LAPTOP) ==========
+  const galleryInput = document.getElementById("galleryInput");
+  const cameraInput = document.getElementById("cameraInput");
+  const galleryBtn = document.getElementById("galleryBtn");
+  const cameraBtn = document.getElementById("cameraBtn");
+  const uploadBtn = document.getElementById("uploadBtn");
   const uploadStatus = document.getElementById("uploadStatus");
   const previewContainer = document.getElementById("previewContainer");
   let selectedFiles = [];
 
-  // Preview multiple files
-  fileInput.addEventListener("change", (e) => {
-    selectedFiles = Array.from(e.target.files);
-    previewContainer.innerHTML = "";
-    selectedFiles.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        const img = document.createElement("img");
-        img.src = ev.target.result;
-        img.className = "preview-thumb";
-        img.title = file.name;
-        previewContainer.appendChild(img);
-      };
-      reader.readAsDataURL(file);
+  function addFilesToQueue(files) {
+    const fileArray = Array.from(files);
+    fileArray.forEach(file => {
+      if (file.type.startsWith("image/")) {
+        selectedFiles.push(file);
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = document.createElement("img");
+          img.src = ev.target.result;
+          img.className = "preview-thumb";
+          img.title = file.name;
+          previewContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      }
     });
+    if (fileArray.length > 0) showToast(`${fileArray.length} image(s) added. Click "Upload All" to send.`);
+  }
+
+  galleryBtn.addEventListener("click", () => galleryInput.click());
+  galleryInput.addEventListener("change", (e) => {
+    if (e.target.files.length) addFilesToQueue(e.target.files);
+    galleryInput.value = "";
+  });
+
+  // Camera button: works on mobile (opens camera) and on laptop (opens file picker)
+  cameraBtn.addEventListener("click", () => {
+    // Clear any existing selection from the camera input to ensure it works every time
+    cameraInput.value = "";
+    // Click the hidden camera input (which has capture attribute)
+    // For mobile, capture forces camera; for laptop, it's a normal file picker (graceful fallback)
+    cameraInput.click();
+  });
+
+  cameraInput.addEventListener("change", (e) => {
+    if (e.target.files.length) addFilesToQueue(e.target.files);
+    cameraInput.value = ""; // reset for next use
   });
 
   uploadBtn.addEventListener("click", async () => {
-    if(selectedFiles.length === 0) { fileInput.click(); return; }
-    uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Uploading ${selectedFiles.length} image(s)... Please wait.`;
+    if (selectedFiles.length === 0) {
+      showToast("Please select or capture at least one photo first.", 3000);
+      return;
+    }
+    uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Uploading ${selectedFiles.length} image(s)... This may take a moment.`;
     
     const uploadedUrls = [];
     let successCount = 0;
     let failCount = 0;
 
-    for(const file of selectedFiles) {
+    for (const file of selectedFiles) {
       const formData = new FormData();
       formData.append("image", file);
       formData.append("key", IMGBB_API_KEY);
       try {
         const imgbbRes = await fetch("https://api.imgbb.com/1/upload", { method: "POST", body: formData });
         const imgbbData = await imgbbRes.json();
-        if(imgbbData.success) {
+        if (imgbbData.success) {
           uploadedUrls.push({ name: file.name, url: imgbbData.data.url });
           successCount++;
         } else {
           failCount++;
         }
-      } catch(err) {
+      } catch (err) {
         failCount++;
         console.error(err);
       }
     }
 
-    if(successCount > 0) {
-      // Prepare email content with all links
+    if (successCount > 0) {
       let linksHtml = "";
       uploadedUrls.forEach(item => {
         linksHtml += `\n📷 **${item.name}** : ${item.url}`;
@@ -548,21 +590,20 @@
           body: JSON.stringify(emailPayload)
         });
         uploadStatus.innerHTML = `✅ ${successCount} file(s) uploaded! Will be reviewed by the admin soon. ${failCount > 0 ? `(${failCount} failed)` : ""}`;
-      } catch(err) {
-        uploadStatus.innerHTML = `✅ Images uploaded but email notification failed. Admin will still receive links? Try again.`;
+        showToast(`✅ Uploaded! Admin will review.`);
+      } catch (err) {
+        uploadStatus.innerHTML = `✅ Images uploaded but email notification had an issue. Admin still has the links?`;
       }
     } else {
       uploadStatus.innerHTML = `❌ Upload failed. Try again with smaller images.`;
+      showToast("Upload failed. Please try again.");
     }
     
     setTimeout(() => uploadStatus.innerHTML = '', 8000);
-    // Clear preview and selection
-    previewContainer.innerHTML = "";
     selectedFiles = [];
-    fileInput.value = "";
-    showToast(`📤 ${successCount} image(s) uploaded! Admin will review.`);
+    previewContainer.innerHTML = "";
   });
-  
+
   renderNotes();
 </script>
 </body>
