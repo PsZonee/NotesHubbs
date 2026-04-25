@@ -7,8 +7,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #fff5f9; color: #1e1a2b; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff5f9;
+      color: #1e1a2b;
+    }
     .header {
       background: linear-gradient(135deg, #ffffff 0%, #fff0f5 100%);
       border-bottom: 2px solid #ffd9e8;
@@ -32,7 +40,11 @@
       background-clip: text;
       color: transparent;
     }
-    .logo p { font-size: 0.7rem; color: #b13e6b; margin-top: 2px; }
+    .logo p {
+      font-size: 0.7rem;
+      color: #b13e6b;
+      margin-top: 2px;
+    }
     .upload-area {
       display: flex;
       gap: 12px;
@@ -43,90 +55,245 @@
       border: 1.5px solid #ffc0d4;
       flex-wrap: wrap;
     }
-    .upload-preview { display: flex; align-items: center; gap: 8px; }
-    .preview-thumb { width: 40px; height: 40px; object-fit: cover; border-radius: 12px; border: 1px solid #ffc0d4; display: none; }
-    .upload-label {
-      background: #e83e8c; color: white; padding: 8px 18px; border-radius: 40px;
-      font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s;
-      display: inline-flex; align-items: center; gap: 8px;
+    .upload-preview {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      max-width: 200px;
     }
-    .upload-label:hover { background: #c72a74; transform: scale(0.97); }
-    #uploadStatus { font-size: 0.75rem; color: #2b7a3e; }
+    .preview-thumb {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid #ffc0d4;
+    }
+    .upload-label {
+      background: #e83e8c;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .upload-label:hover {
+      background: #c72a74;
+      transform: scale(0.97);
+    }
+    #uploadStatus {
+      font-size: 0.75rem;
+      color: #2b7a3e;
+      margin-top: 6px;
+      width: 100%;
+      text-align: center;
+    }
     .subjects-tab {
-      display: flex; flex-wrap: wrap; gap: 12px;
-      padding: 20px 24px 8px 24px; border-bottom: 1px solid #ffe2ec;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 20px 24px 8px 24px;
+      border-bottom: 1px solid #ffe2ec;
       background: white;
     }
     .subject-btn {
-      background: #fff0f5; border: none; padding: 10px 28px; border-radius: 50px;
-      font-size: 0.95rem; font-weight: 700; color: #b13e6b; cursor: pointer;
-      transition: 0.2s; display: flex; align-items: center; gap: 8px;
+      background: #fff0f5;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #b13e6b;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .subject-btn.active { background: #e83e8c; color: white; box-shadow: 0 6px 14px rgba(232,62,140,0.3); }
-    .notes-container { padding: 24px; max-width: 1400px; margin: 0 auto; }
+    .subject-btn.active {
+      background: #e83e8c;
+      color: white;
+      box-shadow: 0 6px 14px rgba(232,62,140,0.3);
+    }
+    .notes-container {
+      padding: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
     .section-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .section-title {
-      font-size: 1.5rem; font-weight: 700; padding-left: 12px;
-      border-left: 5px solid #e83e8c; color: #2d2a3b;
+      font-size: 1.5rem;
+      font-weight: 700;
+      padding-left: 12px;
+      border-left: 5px solid #e83e8c;
+      color: #2d2a3b;
     }
     .add-note-btn {
-      background: #e83e8c; color: white; border: none; padding: 8px 18px;
-      border-radius: 50px; font-weight: 600; cursor: pointer;
-      display: flex; align-items: center; gap: 8px; font-size: 0.85rem;
+      background: #e83e8c;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
     }
-    .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
     .note-card {
-      background: white; border-radius: 24px; overflow: hidden;
-      border: 1.5px solid #ffe2ec; transition: 0.2s; cursor: pointer;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1.5px solid #ffe2ec;
+      transition: 0.2s;
+      cursor: pointer;
     }
-    .note-card:hover { transform: translateY(-4px); border-color: #ffb7cb; box-shadow: 0 20px 28px -12px rgba(232,62,140,0.2); }
-    .card-img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #fef0f5; }
-    .card-info { padding: 14px 16px 16px; }
+    .note-card:hover {
+      transform: translateY(-4px);
+      border-color: #ffb7cb;
+      box-shadow: 0 20px 28px -12px rgba(232,62,140,0.2);
+    }
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #fef0f5;
+    }
+    .card-info {
+      padding: 14px 16px 16px;
+    }
     .card-title {
-      font-weight: 700; font-size: 1rem; margin-bottom: 6px;
-      display: flex; justify-content: space-between; align-items: center;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .action-buttons { display: flex; gap: 6px; }
+    .action-buttons {
+      display: flex;
+      gap: 6px;
+    }
     .edit-btn, .delete-btn {
-      background: none; border: none; cursor: pointer; font-size: 0.85rem;
-      padding: 4px 8px; border-radius: 30px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      border-radius: 30px;
     }
-    .edit-btn { color: #e83e8c; }
-    .edit-btn:hover { background: #fff0f5; }
-    .delete-btn { color: #e83e8c; }
-    .delete-btn:hover { background: #ffe4ed; color: #c72a74; }
-    .card-desc { font-size: 0.7rem; color: #8e6b7c; }
-    .empty-message { grid-column: 1/-1; text-align: center; padding: 50px; color: #b98aa2; }
+    .edit-btn {
+      color: #e83e8c;
+    }
+    .edit-btn:hover {
+      background: #fff0f5;
+    }
+    .delete-btn {
+      color: #e83e8c;
+    }
+    .delete-btn:hover {
+      background: #ffe4ed;
+      color: #c72a74;
+    }
+    .card-desc {
+      font-size: 0.7rem;
+      color: #8e6b7c;
+    }
+    .empty-message {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 50px;
+      color: #b98aa2;
+    }
     .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85); display: flex; align-items: center;
-      justify-content: center; z-index: 1000; visibility: hidden; opacity: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
       transition: 0.2s;
     }
-    .modal-overlay.active { visibility: visible; opacity: 1; }
+    .modal-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
     .image-modal {
-      background: transparent; max-width: 90vw; max-height: 90vh; position: relative;
+      background: transparent;
+      max-width: 90vw;
+      max-height: 90vh;
+      position: relative;
     }
-    .image-modal img { max-width: 100%; max-height: 85vh; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .image-modal img {
+      max-width: 100%;
+      max-height: 85vh;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
     .close-modal {
-      position: absolute; top: -40px; right: -10px; font-size: 32px;
-      cursor: pointer; color: white; background: rgba(0,0,0,0.5);
-      width: 40px; height: 40px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+      position: absolute;
+      top: -40px;
+      right: -10px;
+      font-size: 32px;
+      cursor: pointer;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .close-modal:hover { background: #e83e8c; }
+    .close-modal:hover {
+      background: #e83e8c;
+    }
     footer {
-      text-align: center; padding: 24px; margin-top: 20px;
-      border-top: 1px solid #ffe2ec; font-size: 0.75rem; color: #b56576;
+      text-align: center;
+      padding: 24px;
+      margin-top: 20px;
+      border-top: 1px solid #ffe2ec;
+      font-size: 0.75rem;
+      color: #b56576;
     }
     @media (max-width: 640px) {
-      .header { flex-direction: column; align-items: stretch; text-align: center; }
-      .upload-area { justify-content: center; }
-      .notes-grid { grid-template-columns: 1fr; }
-      .subjects-tab { justify-content: center; }
+      .header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      .upload-area {
+        justify-content: center;
+      }
+      .notes-grid {
+        grid-template-columns: 1fr;
+      }
+      .subjects-tab {
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -135,15 +302,12 @@
 <div class="header">
   <div class="logo">
     <h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1>
-    <p>Class 12 • All notes loaded directly from GitHub</p>
+    <p>Class 12 • All notes loaded from GitHub • Upload multiple photos</p>
   </div>
   <div class="upload-area">
-    <input type="file" id="fileUploadInput" accept="image/*" style="display:none;">
-    <div class="upload-preview">
-      <img id="uploadPreviewImg" class="preview-thumb" alt="preview">
-      <span id="uploadFileName" style="font-size:0.75rem; color:#b13e6b;"></span>
-    </div>
-    <button class="upload-label" id="uploadFileBtn"><i class="fas fa-cloud-upload-alt"></i> Upload Note</button>
+    <input type="file" id="fileUploadInput" accept="image/*" multiple style="display:none;">
+    <div id="previewContainer" class="upload-preview"></div>
+    <button class="upload-label" id="uploadFileBtn"><i class="fas fa-cloud-upload-alt"></i> Upload Multiple</button>
     <span id="uploadStatus"></span>
   </div>
 </div>
@@ -164,7 +328,7 @@
 </div>
 
 <footer>
-  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Upload to request admin review
+  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Upload multiple images at once
 </footer>
 
 <div id="imageModal" class="modal-overlay">
@@ -179,7 +343,7 @@
   const IMGBB_API_KEY = "39b5590e3585c6c22b60701b36155d3b";
   
   // ========== NOTES DATA – ALL RAW IMAGE LINKS FROM GITHUB ==========
-  const notesData = [
+  let notesData = [
     // Chemistry
     { id: 1, subject: "chemistry", title: "Chemistry - 671585061", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/671585061_122109315255283911_3156911350345947087_n.jpg", desc: "Click to enlarge" },
     { id: 2, subject: "chemistry", title: "Chemistry - 672691275", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/672691275_122109315249283911_6691752846088755241_n.jpg", desc: "Click to enlarge" },
@@ -260,10 +424,8 @@
     });
     document.querySelectorAll('.delete-btn').forEach(btn => {
       btn.addEventListener('click', (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); if(confirm("Delete this note?")) { 
-        const newData = notesData.filter(n => n.id !== id); 
-        // note: notesData is const, but we can reassign the array reference? We'll just modify the original array.
-        // Since notesData is const but references an array, we can mutate it.
-        notesData.splice(notesData.findIndex(n => n.id === id), 1);
+        const index = notesData.findIndex(n => n.id === id);
+        if(index !== -1) notesData.splice(index, 1);
         saveToLocal();
         renderNotes(); showToast("Note deleted.");
       } });
@@ -279,7 +441,6 @@
     const stored = localStorage.getItem("noteshub_visual_v4");
     if(stored) {
       const saved = JSON.parse(stored);
-      // Overwrite the original array's content
       notesData.length = 0;
       saved.forEach(item => notesData.push(item));
     }
@@ -316,57 +477,90 @@
   document.querySelectorAll(".subject-btn").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll(".subject-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); currentSubject = btn.dataset.subj; renderNotes(); }); });
   document.getElementById("addNoteBtn").addEventListener("click", addNewNote);
   
-  // ========== UPLOAD IMAGE (sends to email, shows "reviewed by admin") ==========
+  // ========== MULTIPLE FILE UPLOAD ==========
   const fileInput = document.getElementById("fileUploadInput");
   const uploadBtn = document.getElementById("uploadFileBtn");
   const uploadStatus = document.getElementById("uploadStatus");
-  const previewImg = document.getElementById("uploadPreviewImg");
-  const fileNameSpan = document.getElementById("uploadFileName");
-  let selectedFile = null;
+  const previewContainer = document.getElementById("previewContainer");
+  let selectedFiles = [];
+
+  // Preview multiple files
   fileInput.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if(!file) return;
-    selectedFile = file;
-    const reader = new FileReader();
-    reader.onload = (ev) => { previewImg.src = ev.target.result; previewImg.style.display = "block"; fileNameSpan.textContent = file.name; };
-    reader.readAsDataURL(file);
+    selectedFiles = Array.from(e.target.files);
+    previewContainer.innerHTML = "";
+    selectedFiles.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = document.createElement("img");
+        img.src = ev.target.result;
+        img.className = "preview-thumb";
+        img.title = file.name;
+        previewContainer.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
   });
+
   uploadBtn.addEventListener("click", async () => {
-    if(!selectedFile) { fileInput.click(); return; }
-    uploadStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Uploading...';
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-    formData.append("key", IMGBB_API_KEY);
-    try {
-      const imgbbRes = await fetch("https://api.imgbb.com/1/upload", { method: "POST", body: formData });
-      const imgbbData = await imgbbRes.json();
-      if (!imgbbData.success) throw new Error("ImgBB upload failed");
-      const imageUrl = imgbbData.data.url;
+    if(selectedFiles.length === 0) { fileInput.click(); return; }
+    uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Uploading ${selectedFiles.length} image(s)... Please wait.`;
+    
+    const uploadedUrls = [];
+    let successCount = 0;
+    let failCount = 0;
+
+    for(const file of selectedFiles) {
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("key", IMGBB_API_KEY);
+      try {
+        const imgbbRes = await fetch("https://api.imgbb.com/1/upload", { method: "POST", body: formData });
+        const imgbbData = await imgbbRes.json();
+        if(imgbbData.success) {
+          uploadedUrls.push({ name: file.name, url: imgbbData.data.url });
+          successCount++;
+        } else {
+          failCount++;
+        }
+      } catch(err) {
+        failCount++;
+        console.error(err);
+      }
+    }
+
+    if(successCount > 0) {
+      // Prepare email content with all links
+      let linksHtml = "";
+      uploadedUrls.forEach(item => {
+        linksHtml += `\n📷 **${item.name}** : ${item.url}`;
+      });
       const emailPayload = {
         name: "Class12_Student",
-        message: `📸 A student uploaded an image for **${currentSubject.toUpperCase()}** subject.\n\n🖼️ **Direct Image Link:**\n${imageUrl}\n\n📁 Original file: ${selectedFile.name}\n📦 Size: ${(selectedFile.size/1024).toFixed(2)} KB\n\n✅ You can use this link in NOTESHUBS.`,
-        _subject: `📖 NOTESHUBS: New Image Upload - ${selectedFile.name}`,
+        message: `📸 A student uploaded ${successCount} image(s) for **${currentSubject.toUpperCase()}** subject.\n\n${linksHtml}\n\n✅ Use these links in NOTESHUBS.`,
+        _subject: `📖 NOTESHUBS: ${successCount} New Image(s) Uploaded - ${currentSubject.toUpperCase()}`,
         _captcha: "false",
         _template: "table"
       };
-      await fetch("https://formsubmit.co/ajax/sammanlamsal31@gmail.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(emailPayload)
-      });
-      uploadStatus.innerHTML = '✅ File uploaded! Will be reviewed by the admin soon.';
-      setTimeout(() => uploadStatus.innerHTML = '', 6000);
-      previewImg.style.display = "none";
-      fileNameSpan.textContent = "";
-      selectedFile = null;
-      fileInput.value = "";
-      showToast("📤 Uploaded! Admin will review.");
-    } catch(err) {
-      console.error(err);
-      uploadStatus.innerHTML = '❌ Upload failed. Try again with a smaller image.';
-      setTimeout(() => uploadStatus.innerHTML = '', 4000);
-      showToast("Upload error. Please try again later.");
+      try {
+        await fetch("https://formsubmit.co/ajax/sammanlamsal31@gmail.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(emailPayload)
+        });
+        uploadStatus.innerHTML = `✅ ${successCount} file(s) uploaded! Will be reviewed by the admin soon. ${failCount > 0 ? `(${failCount} failed)` : ""}`;
+      } catch(err) {
+        uploadStatus.innerHTML = `✅ Images uploaded but email notification failed. Admin will still receive links? Try again.`;
+      }
+    } else {
+      uploadStatus.innerHTML = `❌ Upload failed. Try again with smaller images.`;
     }
+    
+    setTimeout(() => uploadStatus.innerHTML = '', 8000);
+    // Clear preview and selection
+    previewContainer.innerHTML = "";
+    selectedFiles = [];
+    fileInput.value = "";
+    showToast(`📤 ${successCount} image(s) uploaded! Admin will review.`);
   });
   
   renderNotes();
