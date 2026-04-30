@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>NOTESHUBS | Class 12 Visual Notes</title>
+  <title>NOTESHUBS | Class 12 Visual Notes (Unlimited Uploads)</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -318,7 +318,7 @@
 <div class="header">
   <div class="logo">
     <h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1>
-    <p>Class 12 • All notes from GitHub • Works on mobile & laptop</p>
+    <p>Class 12 • Unlimited uploads • Works on mobile & laptop</p>
   </div>
   <div class="upload-area">
     <div class="upload-buttons">
@@ -349,7 +349,7 @@
 </div>
 
 <footer>
-  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Upload photos (gallery or camera) – admin will review.
+  <i class="fas fa-heart" style="color:#e83e8c;"></i> Click any image to enlarge • Upload unlimited photos (camera or gallery) – admin receives every link.
 </footer>
 
 <div id="imageModal" class="modal-overlay">
@@ -360,8 +360,9 @@
 </div>
 
 <script>
-  // ========== IMGBB API KEY ==========
-  const IMGBB_API_KEY = "39b5590e3585c6c22b60701b36155d3b";
+  // ========== UNLIMITED IMAGE HOSTING USING TELEGRAPH (no API key, no limits) ==========
+  // Telegraph upload endpoint – free, unlimited, and no registration required.
+  const TELEGRAPH_UPLOAD_URL = "https://telegra.ph/upload";
   
   // ========== NOTES DATA – ALL RAW IMAGE LINKS FROM GITHUB (full list) ==========
   let notesData = [
@@ -390,13 +391,12 @@
     { id: 23, subject: "physics", title: "Physics - 674059450", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/674059450_122229899840326428_1849670502064263688_n.jpg", desc: "Click to enlarge" },
     { id: 24, subject: "physics", title: "Physics - 676838556", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676838556_122199786338520585_7280878525199820986_n.jpg", desc: "Click to enlarge" },
     { id: 25, subject: "physics", title: "Physics - 676923357", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676923357_122199786146520585_8416927790836267373_n%20(1).jpg", desc: "Click to enlarge" },
-    { id: 26, subject: "physics", title: "Physics - 678279199", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/678279199_122199786200520585_5662805947512732130_n%20(1).jpg", desc: "Click to enlarge" },
-    { id: 27, subject: "english", title: "English - 071717", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071717.png", desc: "Click to enlarge" },
-    { id: 28, subject: "english", title: "English - 071726", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071726.png", desc: "Click to enlarge" },
-    { id: 29, subject: "english", title: "English - 071733", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071733.png", desc: "Click to enlarge" },
-    { id: 30, subject: "english", title: "English - 071738", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071738.png", desc: "Click to enlarge" },
-    { id: 31, subject: "english", title: "English - 071744", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071744.png", desc: "Click to enlarge" },
-    { id: 32, subject: "english", title: "English - 071751", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071751.png", desc: "Click to enlarge" },
+    { id: 26, subject: "english", title: "English - 071717", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071717.png", desc: "Click to enlarge" },
+    { id: 27, subject: "english", title: "English - 071726", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071726.png", desc: "Click to enlarge" },
+    { id: 28, subject: "english", title: "English - 071733", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071733.png", desc: "Click to enlarge" },
+    { id: 29, subject: "english", title: "English - 071738", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071738.png", desc: "Click to enlarge" },
+    { id: 30, subject: "english", title: "English - 071744", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071744.png", desc: "Click to enlarge" },
+    { id: 31, subject: "english", title: "English - 071751", imageUrl: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071751.png", desc: "Click to enlarge" },
   ];
 
   let currentSubject = "math";
@@ -450,10 +450,10 @@
   function escapeHtml(str) { if(!str) return ""; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
   
   function saveToLocal() {
-    localStorage.setItem("noteshub_visual_v4", JSON.stringify(notesData));
+    localStorage.setItem("noteshub_visual_v5", JSON.stringify(notesData));
   }
   function loadFromLocal() {
-    const stored = localStorage.getItem("noteshub_visual_v4");
+    const stored = localStorage.getItem("noteshub_visual_v5");
     if(stored) {
       const saved = JSON.parse(stored);
       notesData.length = 0;
@@ -492,7 +492,7 @@
   document.querySelectorAll(".subject-btn").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll(".subject-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); currentSubject = btn.dataset.subj; renderNotes(); }); });
   document.getElementById("addNoteBtn").addEventListener("click", addNewNote);
   
-  // ========== CROSS-PLATFORM CAMERA & GALLERY (WORKS ON MOBILE & LAPTOP) ==========
+  // ========== UNLIMITED UPLOAD USING TELEGRAPH (no API key, no daily limits) ==========
   const galleryInput = document.getElementById("galleryInput");
   const cameraInput = document.getElementById("cameraInput");
   const galleryBtn = document.getElementById("galleryBtn");
@@ -527,44 +527,46 @@
     galleryInput.value = "";
   });
 
-  // Camera button: works on mobile (opens camera) and on laptop (opens file picker)
   cameraBtn.addEventListener("click", () => {
-    // Clear any existing selection from the camera input to ensure it works every time
     cameraInput.value = "";
-    // Click the hidden camera input (which has capture attribute)
-    // For mobile, capture forces camera; for laptop, it's a normal file picker (graceful fallback)
     cameraInput.click();
   });
-
   cameraInput.addEventListener("change", (e) => {
     if (e.target.files.length) addFilesToQueue(e.target.files);
-    cameraInput.value = ""; // reset for next use
+    cameraInput.value = "";
   });
+
+  async function uploadToTelegraph(file) {
+    const formData = new FormData();
+    formData.append("file", file);
+    const response = await fetch(TELEGRAPH_UPLOAD_URL, {
+      method: "POST",
+      body: formData
+    });
+    const data = await response.json();
+    if (data && data[0] && data[0].src) {
+      return "https://telegra.ph" + data[0].src;
+    } else {
+      throw new Error("Telegraph upload failed");
+    }
+  }
 
   uploadBtn.addEventListener("click", async () => {
     if (selectedFiles.length === 0) {
       showToast("Please select or capture at least one photo first.", 3000);
       return;
     }
-    uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Uploading ${selectedFiles.length} image(s)... This may take a moment.`;
+    uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Uploading ${selectedFiles.length} image(s) to unlimited host...`;
     
     const uploadedUrls = [];
     let successCount = 0;
     let failCount = 0;
 
     for (const file of selectedFiles) {
-      const formData = new FormData();
-      formData.append("image", file);
-      formData.append("key", IMGBB_API_KEY);
       try {
-        const imgbbRes = await fetch("https://api.imgbb.com/1/upload", { method: "POST", body: formData });
-        const imgbbData = await imgbbRes.json();
-        if (imgbbData.success) {
-          uploadedUrls.push({ name: file.name, url: imgbbData.data.url });
-          successCount++;
-        } else {
-          failCount++;
-        }
+        const imageUrl = await uploadToTelegraph(file);
+        uploadedUrls.push({ name: file.name, url: imageUrl });
+        successCount++;
       } catch (err) {
         failCount++;
         console.error(err);
@@ -578,7 +580,7 @@
       });
       const emailPayload = {
         name: "Class12_Student",
-        message: `📸 A student uploaded ${successCount} image(s) for **${currentSubject.toUpperCase()}** subject.\n\n${linksHtml}\n\n✅ Use these links in NOTESHUBS.`,
+        message: `📸 A student uploaded ${successCount} image(s) for **${currentSubject.toUpperCase()}** subject.\n\n${linksHtml}\n\n✅ Use these **unlimited** links in NOTESHUBS.`,
         _subject: `📖 NOTESHUBS: ${successCount} New Image(s) Uploaded - ${currentSubject.toUpperCase()}`,
         _captcha: "false",
         _template: "table"
@@ -589,7 +591,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(emailPayload)
         });
-        uploadStatus.innerHTML = `✅ ${successCount} file(s) uploaded! Will be reviewed by the admin soon. ${failCount > 0 ? `(${failCount} failed)` : ""}`;
+        uploadStatus.innerHTML = `✅ ${successCount} file(s) uploaded (unlimited host)! Will be reviewed by the admin soon. ${failCount > 0 ? `(${failCount} failed)` : ""}`;
         showToast(`✅ Uploaded! Admin will review.`);
       } catch (err) {
         uploadStatus.innerHTML = `✅ Images uploaded but email notification had an issue. Admin still has the links?`;
