@@ -3,106 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>NOTESHUBS | Unlimited Images & Videos (Guaranteed Working)</title>
+  <title>NOTESHUBS | Class 12 Notes</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: #fff5f9; color: #1e1a2b; }
     .header {
-      background: linear-gradient(135deg, #ffffff 0%, #fff0f5 100%);
-      border-bottom: 2px solid #ffd9e8;
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(8px);
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.95); border-bottom: 2px solid #ffd9e8;
+      padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px);
     }
-    .logo h1 { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #e83e8c, #ff85b3); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .logo p { font-size: 0.7rem; color: #b13e6b; margin-top: 2px; }
+    .logo h1 { font-size: 1.7rem; font-weight: 800; background: linear-gradient(135deg,#e83e8c,#ff85b3); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .logo p  { font-size: 0.68rem; color: #b13e6b; margin-top: 2px; }
     .upload-area {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      background: #fff0f5;
-      padding: 6px 16px;
-      border-radius: 60px;
-      border: 1.5px solid #ffc0d4;
-      flex-wrap: wrap;
+      display: flex; flex-direction: column; gap: 8px;
+      background: #fff0f5; padding: 10px 16px; border-radius: 20px;
+      border: 1.5px solid #ffc0d4; min-width: 260px; max-width: 520px; flex: 1;
     }
     .upload-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
-    .upload-preview { display: flex; gap: 8px; flex-wrap: wrap; max-width: 220px; align-items: center; }
-    .preview-thumb {
-      width: 60px; height: 60px; object-fit: cover; border-radius: 12px;
-      border: 1.5px solid #ffc0d4; background: white;
-    }
-    .preview-video-icon {
-      width: 60px; height: 60px; background: #222; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 0.7rem; text-align: center; word-break: break-word;
-    }
-    .upload-label {
-      background: #e83e8c; color: white; padding: 8px 18px; border-radius: 40px;
-      font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s;
-      display: inline-flex; align-items: center; gap: 8px; border: none;
-    }
-    .upload-label:hover { background: #c72a74; transform: scale(0.97); }
-    .camera-btn { background: #4a6fa5; }
-    .camera-btn:hover { background: #3a5a85; }
-    #uploadStatus { font-size: 0.75rem; color: #2b7a3e; margin-top: 6px; width: 100%; text-align: center; }
-    .subjects-tab { display: flex; flex-wrap: wrap; gap: 12px; padding: 20px 24px 8px 24px; border-bottom: 1px solid #ffe2ec; background: white; }
-    .subject-btn {
-      background: #fff0f5; border: none; padding: 10px 28px; border-radius: 50px;
-      font-size: 0.95rem; font-weight: 700; color: #b13e6b; cursor: pointer;
-      transition: 0.2s; display: flex; align-items: center; gap: 8px;
-    }
-    .subject-btn.active { background: #e83e8c; color: white; box-shadow: 0 6px 14px rgba(232,62,140,0.3); }
-    .notes-container { padding: 24px; max-width: 1400px; margin: 0 auto; }
-    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
-    .section-title { font-size: 1.5rem; font-weight: 700; padding-left: 12px; border-left: 5px solid #e83e8c; color: #2d2a3b; }
-    .add-note-btn { background: #e83e8c; color: white; border: none; padding: 8px 18px; border-radius: 50px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
-    .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-    .note-card { background: white; border-radius: 24px; overflow: hidden; border: 1.5px solid #ffe2ec; transition: 0.2s; cursor: pointer; }
-    .note-card:hover { transform: translateY(-4px); border-color: #ffb7cb; box-shadow: 0 20px 28px -12px rgba(232,62,140,0.2); }
-    .card-img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #fef0f5; }
-    .card-video-thumb {
-      width: 100%; aspect-ratio: 4 / 3; background: #111;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      color: white; gap: 8px;
-    }
+    .upload-preview { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .preview-thumb { width: 56px; height: 56px; object-fit: cover; border-radius: 10px; border: 1.5px solid #ffc0d4; }
+    .preview-video-icon { width: 56px; height: 56px; background: #222; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #ff85b3; font-size: 20px; gap: 2px; }
+    .preview-video-icon span { font-size: 9px; color: #aaa; }
+    .btn { background: #e83e8c; color: white; padding: 8px 16px; border-radius: 40px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: 0.18s; display: inline-flex; align-items: center; gap: 7px; border: none; white-space: nowrap; }
+    .btn:hover { background: #c72a74; transform: scale(0.97); }
+    .btn.blue { background: #4a6fa5; } .btn.blue:hover { background: #3a5a85; }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+    .progress-wrap { width: 100%; background: #ffd9e8; border-radius: 10px; height: 7px; overflow: hidden; display: none; }
+    .progress-bar  { height: 100%; background: #e83e8c; border-radius: 10px; transition: width 0.3s; width: 0%; }
+    #uploadStatus  { font-size: 0.74rem; line-height: 1.5; word-break: break-word; color: #2b7a3e; min-height: 18px; }
+    #uploadStatus.err { color: #c0392b; }
+    .subjects-tab { display: flex; flex-wrap: wrap; gap: 10px; padding: 16px 24px 10px; border-bottom: 1px solid #ffe2ec; background: white; }
+    .subject-btn { background: #fff0f5; border: none; padding: 9px 24px; border-radius: 50px; font-size: 0.92rem; font-weight: 700; color: #b13e6b; cursor: pointer; transition: 0.18s; display: flex; align-items: center; gap: 7px; }
+    .subject-btn.active { background: #e83e8c; color: white; box-shadow: 0 6px 14px rgba(232,62,140,0.28); }
+    .notes-container { padding: 22px; max-width: 1400px; margin: 0 auto; }
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 10px; }
+    .section-title  { font-size: 1.4rem; font-weight: 700; padding-left: 12px; border-left: 5px solid #e83e8c; color: #2d2a3b; }
+    .notes-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(270px,1fr)); gap: 18px; }
+    .note-card { background: white; border-radius: 22px; overflow: hidden; border: 1.5px solid #ffe2ec; transition: 0.18s; cursor: pointer; }
+    .note-card:hover { transform: translateY(-4px); border-color: #ffb7cb; box-shadow: 0 18px 28px -12px rgba(232,62,140,0.18); }
+    .card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #fef0f5; display: block; }
+    .card-video-thumb { width: 100%; aspect-ratio: 4/3; background: #111; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
     .card-video-thumb i { font-size: 2.5rem; color: #ff85b3; }
-    .card-video-thumb span { font-size: 0.75rem; color: #aaa; }
-    .card-info { padding: 14px 16px 16px; }
-    .card-title { font-weight: 700; font-size: 1rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
-    .action-buttons { display: flex; gap: 6px; }
-    .edit-btn, .delete-btn { background: none; border: none; cursor: pointer; font-size: 0.85rem; padding: 4px 8px; border-radius: 30px; }
-    .edit-btn { color: #e83e8c; }
-    .edit-btn:hover { background: #fff0f5; }
-    .delete-btn { color: #e83e8c; }
-    .delete-btn:hover { background: #ffe4ed; color: #c72a74; }
-    .card-desc { font-size: 0.7rem; color: #8e6b7c; }
+    .card-video-thumb span { font-size: 0.72rem; color: #888; max-width: 90%; text-align: center; word-break: break-word; }
+    .card-info { padding: 13px 15px 15px; }
+    .card-title { font-weight: 700; font-size: 0.97rem; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
+    .action-buttons { display: flex; gap: 4px; }
+    .edit-btn, .delete-btn { background: none; border: none; cursor: pointer; padding: 4px 7px; border-radius: 20px; font-size: 0.82rem; color: #e83e8c; transition: 0.15s; }
+    .edit-btn:hover { background: #fff0f5; } .delete-btn:hover { background: #ffe4ed; color: #c72a74; }
+    .card-desc { font-size: 0.68rem; color: #8e6b7c; }
     .empty-message { grid-column: 1/-1; text-align: center; padding: 50px; color: #b98aa2; }
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: flex; align-items: center; justify-content: center; z-index: 1000; visibility: hidden; opacity: 0; transition: 0.2s; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.92); display: flex; align-items: center; justify-content: center; z-index: 1000; visibility: hidden; opacity: 0; transition: 0.2s; }
     .modal-overlay.active { visibility: visible; opacity: 1; }
-    .modal-content { max-width: 90vw; max-height: 90vh; background: #000; border-radius: 16px; overflow: hidden; }
-    .modal-content img, .modal-content video { max-width: 100%; max-height: 85vh; display: block; }
-    .close-modal { position: absolute; top: 20px; right: 20px; font-size: 32px; cursor: pointer; color: white; background: rgba(0,0,0,0.5); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1001; }
+    .modal-content { max-width: 92vw; max-height: 92vh; background: #000; border-radius: 14px; overflow: hidden; }
+    .modal-content img, .modal-content video { max-width: 100%; max-height: 88vh; display: block; }
+    .close-modal { position: absolute; top: 18px; right: 18px; font-size: 28px; cursor: pointer; color: white; background: rgba(0,0,0,0.5); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1001; }
     .close-modal:hover { background: #e83e8c; }
-    .progress-bar-wrap { width: 100%; background: #ffd9e8; border-radius: 10px; height: 8px; margin-top: 6px; overflow: hidden; display: none; }
-    .progress-bar { height: 100%; background: #e83e8c; border-radius: 10px; transition: width 0.3s; width: 0%; }
-    footer { text-align: center; padding: 24px; margin-top: 20px; border-top: 1px solid #ffe2ec; font-size: 0.75rem; color: #b56576; }
+    footer { text-align: center; padding: 22px; margin-top: 16px; border-top: 1px solid #ffe2ec; font-size: 0.73rem; color: #b56576; }
     @media (max-width: 640px) {
-      .header { flex-direction: column; align-items: stretch; text-align: center; }
-      .upload-area { justify-content: center; }
-      .notes-grid { grid-template-columns: 1fr; }
+      .header { flex-direction: column; align-items: stretch; }
+      .upload-area { max-width: 100%; } .notes-grid { grid-template-columns: 1fr; }
       .subjects-tab { justify-content: center; }
-      .upload-buttons { justify-content: center; }
     }
   </style>
 </head>
@@ -110,24 +72,24 @@
 
 <div class="header">
   <div class="logo">
-    <h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1>
-    <p>Class 12 • Unlimited images & videos (100% working uploads)</p>
+    <h1><i class="fas fa-graduation-cap" style="color:#e83e8c"></i> NOTESHUBS</h1>
+    <p>Class 12 • Upload images & videos – admin gets email with links</p>
   </div>
   <div class="upload-area">
     <div class="upload-buttons">
-      <input type="file" id="galleryInput" accept="image/*,video/*" multiple style="display:none;">
-      <input type="file" id="cameraInput" accept="image/*,video/*" capture style="display:none;">
-      <button class="upload-label" id="galleryBtn"><i class="fas fa-images"></i> Gallery (img/vid)</button>
-      <button class="upload-label camera-btn" id="cameraBtn"><i class="fas fa-camera"></i> Take Photo/Video</button>
-      <button class="upload-label" id="uploadBtn"><i class="fas fa-cloud-upload-alt"></i> Upload All</button>
+      <input type="file" id="galleryInput" accept="image/*,video/*" multiple style="display:none">
+      <input type="file" id="cameraInput"  accept="image/*,video/*" capture  style="display:none">
+      <button class="btn"      id="galleryBtn"><i class="fas fa-images"></i> Gallery</button>
+      <button class="btn blue" id="cameraBtn"><i class="fas fa-camera"></i> Camera</button>
+      <button class="btn"      id="uploadBtn"><i class="fas fa-cloud-upload-alt"></i> Upload All</button>
     </div>
     <div id="previewContainer" class="upload-preview"></div>
+    <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
     <span id="uploadStatus"></span>
-    <div class="progress-bar-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
   </div>
 </div>
 
-<div class="subjects-tab" id="subjectTabs">
+<div class="subjects-tab">
   <button class="subject-btn active" data-subj="math"><i class="fas fa-calculator"></i> Mathematics</button>
   <button class="subject-btn" data-subj="physics"><i class="fas fa-atom"></i> Physics</button>
   <button class="subject-btn" data-subj="chemistry"><i class="fas fa-flask"></i> Chemistry</button>
@@ -137,449 +99,332 @@
 <div class="notes-container">
   <div class="section-header">
     <div class="section-title" id="activeSubjectTitle">📐 Mathematics</div>
-    <button class="add-note-btn" id="addNoteBtn"><i class="fas fa-plus-circle"></i> Add New Note</button>
+    <button class="btn" id="addNoteBtn"><i class="fas fa-plus-circle"></i> Add New Note</button>
   </div>
   <div id="notesGrid" class="notes-grid"></div>
 </div>
 
-<footer><i class="fas fa-heart" style="color:#e83e8c;"></i> Click any file to preview • Unlimited uploads – admin receives all links.</footer>
+<footer><i class="fas fa-heart" style="color:#e83e8c"></i> Click any card to preview full size</footer>
 
 <div id="mediaModal" class="modal-overlay">
   <div class="modal-content" id="modalContent"></div>
-  <span class="close-modal" id="closeMediaModal">&times;</span>
+  <span class="close-modal" id="closeModal">&times;</span>
 </div>
 
 <script>
-  const IMGBB_API_KEY = "39b5590e3585c6c22b60701b36155d3b";
+// ─── ADMIN EMAIL ─────────────────────────────────────────────────────────────
+const ADMIN_EMAIL = "sammanlamsal31@gmail.com";
+const IMGBB_KEY   = "39b5590e3585c6c22b60701b36155d3b";
 
-  // ─── IMAGE COMPRESSION ───────────────────────────────────────────────────────
-  function compressImage(file, maxDimension = 1200, quality = 0.7) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          let { width, height } = img;
-          if (width > maxDimension || height > maxDimension) {
-            if (width > height) { height = (height * maxDimension) / width; width = maxDimension; }
-            else { width = (width * maxDimension) / height; height = maxDimension; }
-          }
-          const canvas = document.createElement('canvas');
-          canvas.width = width; canvas.height = height;
-          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-          canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error("Compression failed")), 'image/jpeg', quality);
-        };
-        img.onerror = () => reject(new Error("Image load error"));
-        img.src = e.target.result;
-      };
-      reader.onerror = () => reject(new Error("File read error"));
-      reader.readAsDataURL(file);
-    });
+// ─── NOTES DATA ──────────────────────────────────────────────────────────────
+let notesData = [
+  { id:1,  subject:"chemistry", title:"Chemistry - 671585061", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/671585061_122109315255283911_3156911350345947087_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:2,  subject:"chemistry", title:"Chemistry - 672691275", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/672691275_122109315249283911_6691752846088755241_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:3,  subject:"chemistry", title:"Chemistry - 673521905", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/673521905_122109315291283911_4029575501920899533_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:4,  subject:"chemistry", title:"Screenshot 071330", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071330.png", type:"image", desc:"Click to enlarge" },
+  { id:5,  subject:"chemistry", title:"Screenshot 071336", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071336.png", type:"image", desc:"Click to enlarge" },
+  { id:6,  subject:"chemistry", title:"Screenshot 071344", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071344.png", type:"image", desc:"Click to enlarge" },
+  { id:7,  subject:"chemistry", title:"Screenshot 071351", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071351.png", type:"image", desc:"Click to enlarge" },
+  { id:8,  subject:"chemistry", title:"Screenshot 071357", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071357.png", type:"image", desc:"Click to enlarge" },
+  { id:9,  subject:"chemistry", title:"Screenshot 071403", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071403.png", type:"image", desc:"Click to enlarge" },
+  { id:10, subject:"chemistry", title:"Screenshot 071411", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071411.png", type:"image", desc:"Click to enlarge" },
+  { id:11, subject:"chemistry", title:"Screenshot 071418", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071418.png", type:"image", desc:"Click to enlarge" },
+  { id:12, subject:"chemistry", title:"Screenshot 071426", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071426.png", type:"image", desc:"Click to enlarge" },
+  { id:13, subject:"math", title:"Math - 667987983", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/667987983_122228570132326428_659498413692828923_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:14, subject:"math", title:"Math - 673640429", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/673640429_122230037078326428_8201432397743733965_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:15, subject:"math", title:"Math - 674203845", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/674203845_122230151576326428_2659184455978490793_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:16, subject:"math", title:"Math - 674444166", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/674444166_122230037168326428_6467345128106203806_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:17, subject:"math", title:"Math - 675190078", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/675190078_122230151534326428_8741963825995436161_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:18, subject:"math", title:"Math - 675578771", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/675578771_122230151618326428_2117698523574390344_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:19, subject:"math", title:"Math - 676923152", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/676923152_122230037126326428_5555090164868953875_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:20, subject:"physics", title:"Physics - 668556295", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/668556295_122229217736326428_5800344575183112312_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:21, subject:"physics", title:"Physics - 668984038", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/668984038_122229217604326428_5132577566145805611_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:22, subject:"physics", title:"Physics - 669388747", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/669388747_122229217646326428_8455232024208187568_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:23, subject:"physics", title:"Physics - 674059450", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/674059450_122229899840326428_1849670502064263688_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:24, subject:"physics", title:"Physics - 676838556", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676838556_122199786338520585_7280878525199820986_n.jpg", type:"image", desc:"Click to enlarge" },
+  { id:25, subject:"physics", title:"Physics - 676923357", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676923357_122199786146520585_8416927790836267373_n%20(1).jpg", type:"image", desc:"Click to enlarge" },
+  { id:26, subject:"english", title:"English - 071717", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071717.png", type:"image", desc:"Click to enlarge" },
+  { id:27, subject:"english", title:"English - 071726", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071726.png", type:"image", desc:"Click to enlarge" },
+  { id:28, subject:"english", title:"English - 071733", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071733.png", type:"image", desc:"Click to enlarge" },
+  { id:29, subject:"english", title:"English - 071738", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071738.png", type:"image", desc:"Click to enlarge" },
+  { id:30, subject:"english", title:"English - 071744", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071744.png", type:"image", desc:"Click to enlarge" },
+  { id:31, subject:"english", title:"English - 071751", url:"https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071751.png", type:"image", desc:"Click to enlarge" },
+];
+
+let currentSubject = "math";
+
+function esc(s){if(!s)return"";return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function save(){localStorage.setItem("noteshub_v14",JSON.stringify(notesData));}
+function load(){try{const s=localStorage.getItem("noteshub_v14");if(s){const d=JSON.parse(s);notesData.length=0;d.forEach(i=>notesData.push(i));}}catch(e){}}
+load();
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function renderNotes(){
+  const filtered=notesData.filter(n=>n.subject===currentSubject);
+  const titles={math:"📐 Mathematics",physics:"⚛️ Physics",chemistry:"🧪 Chemistry",english:"📖 English"};
+  document.getElementById("activeSubjectTitle").textContent=titles[currentSubject]||"Notes";
+  const grid=document.getElementById("notesGrid");
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty-message"><i class="fas fa-camera" style="font-size:2rem;margin-bottom:12px;display:block;"></i>No notes yet.</div>`;
+    return;
   }
-
-  // ─── IMAGE UPLOAD → ImgBB ────────────────────────────────────────────────────
-  async function uploadImageToImgbb(blob) {
-    const formData = new FormData();
-    formData.append("image", blob);
-    formData.append("key", IMGBB_API_KEY);
-    const res = await fetch("https://api.imgbb.com/1/upload", { method: "POST", body: formData });
-    const data = await res.json();
-    if (data.success && data.data?.url) return data.data.url;
-    throw new Error("ImgBB: " + (data.error?.message || "Unknown error"));
-  }
-
-  // ─── VIDEO UPLOAD STRATEGY ───────────────────────────────────────────────────
-  // 1. Litterbox (catbox temporary, proper CORS headers)
-  // 2. 0x0.st (CORS-friendly, up to 512MB)
-  // Both return a plain-text URL on success.
-
-  function uploadToLitterbox(file, onProgress) {
-    return new Promise((resolve, reject) => {
-      const formData = new FormData();
-      formData.append("reqtype", "fileupload");
-      formData.append("time", "72h"); // keep for 72 hours
-      formData.append("fileToUpload", file);
-
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "https://litterbox.catbox.moe/resources/internals/api.php", true);
-
-      xhr.upload.onprogress = (e) => {
-        if (e.lengthComputable && onProgress) onProgress(Math.round((e.loaded / e.total) * 100));
-      };
-
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          const url = xhr.responseText.trim();
-          if (url.startsWith("http")) resolve(url);
-          else reject(new Error("Litterbox error: " + url));
-        } else {
-          reject(new Error("Litterbox HTTP " + xhr.status));
-        }
-      };
-      xhr.onerror = () => reject(new Error("Litterbox network error"));
-      xhr.ontimeout = () => reject(new Error("Litterbox timeout"));
-      xhr.timeout = 300000; // 5 min
-      xhr.send(formData);
-    });
-  }
-
-  function uploadTo0x0(file, onProgress) {
-    return new Promise((resolve, reject) => {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "https://0x0.st", true);
-
-      xhr.upload.onprogress = (e) => {
-        if (e.lengthComputable && onProgress) onProgress(Math.round((e.loaded / e.total) * 100));
-      };
-
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          const url = xhr.responseText.trim();
-          if (url.startsWith("http")) resolve(url);
-          else reject(new Error("0x0.st error: " + url));
-        } else {
-          reject(new Error("0x0.st HTTP " + xhr.status));
-        }
-      };
-      xhr.onerror = () => reject(new Error("0x0.st network error"));
-      xhr.ontimeout = () => reject(new Error("0x0.st timeout"));
-      xhr.timeout = 300000;
-      xhr.send(formData);
-    });
-  }
-
-  // Try Litterbox first, fall back to 0x0.st
-  async function uploadVideo(file, onProgress) {
-    try {
-      return await uploadToLitterbox(file, onProgress);
-    } catch (err1) {
-      console.warn("Litterbox failed, trying 0x0.st:", err1.message);
-      try {
-        return await uploadTo0x0(file, onProgress);
-      } catch (err2) {
-        throw new Error(`Both hosts failed. Litterbox: ${err1.message} | 0x0.st: ${err2.message}`);
-      }
-    }
-  }
-
-  // ─── NOTES DATA ──────────────────────────────────────────────────────────────
-  let notesData = [
-    { id: 1, subject: "chemistry", title: "Chemistry - 671585061", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/671585061_122109315255283911_3156911350345947087_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 2, subject: "chemistry", title: "Chemistry - 672691275", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/672691275_122109315249283911_6691752846088755241_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 3, subject: "chemistry", title: "Chemistry - 673521905", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/673521905_122109315291283911_4029575501920899533_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 4, subject: "chemistry", title: "Screenshot 071330", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071330.png", type: "image", desc: "Click to enlarge" },
-    { id: 5, subject: "chemistry", title: "Screenshot 071336", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071336.png", type: "image", desc: "Click to enlarge" },
-    { id: 6, subject: "chemistry", title: "Screenshot 071344", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071344.png", type: "image", desc: "Click to enlarge" },
-    { id: 7, subject: "chemistry", title: "Screenshot 071351", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071351.png", type: "image", desc: "Click to enlarge" },
-    { id: 8, subject: "chemistry", title: "Screenshot 071357", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071357.png", type: "image", desc: "Click to enlarge" },
-    { id: 9, subject: "chemistry", title: "Screenshot 071403", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071403.png", type: "image", desc: "Click to enlarge" },
-    { id: 10, subject: "chemistry", title: "Screenshot 071411", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071411.png", type: "image", desc: "Click to enlarge" },
-    { id: 11, subject: "chemistry", title: "Screenshot 071418", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071418.png", type: "image", desc: "Click to enlarge" },
-    { id: 12, subject: "chemistry", title: "Screenshot 071426", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/Screenshot%202026-04-24%20071426.png", type: "image", desc: "Click to enlarge" },
-    { id: 13, subject: "math", title: "Math - 667987983", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/667987983_122228570132326428_659498413692828923_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 14, subject: "math", title: "Math - 673640429", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/673640429_122230037078326428_8201432397743733965_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 15, subject: "math", title: "Math - 674203845", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/674203845_122230151576326428_2659184455978490793_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 16, subject: "math", title: "Math - 674444166", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/674444166_122230037168326428_6467345128106203806_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 17, subject: "math", title: "Math - 675190078", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/675190078_122230151534326428_8741963825995436161_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 18, subject: "math", title: "Math - 675578771", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/675578771_122230151618326428_2117698523574390344_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 19, subject: "math", title: "Math - 676923152", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/Math/676923152_122230037126326428_5555090164868953875_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 20, subject: "physics", title: "Physics - 668556295", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/668556295_122229217736326428_5800344575183112312_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 21, subject: "physics", title: "Physics - 668984038", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/668984038_122229217604326428_5132577566145805611_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 22, subject: "physics", title: "Physics - 669388747", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/669388747_122229217646326428_8455232024208187568_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 23, subject: "physics", title: "Physics - 674059450", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/674059450_122229899840326428_1849670502064263688_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 24, subject: "physics", title: "Physics - 676838556", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676838556_122199786338520585_7280878525199820986_n.jpg", type: "image", desc: "Click to enlarge" },
-    { id: 25, subject: "physics", title: "Physics - 676923357", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/physics/676923357_122199786146520585_8416927790836267373_n%20(1).jpg", type: "image", desc: "Click to enlarge" },
-    { id: 26, subject: "english", title: "English - 071717", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071717.png", type: "image", desc: "Click to enlarge" },
-    { id: 27, subject: "english", title: "English - 071726", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071726.png", type: "image", desc: "Click to enlarge" },
-    { id: 28, subject: "english", title: "English - 071733", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071733.png", type: "image", desc: "Click to enlarge" },
-    { id: 29, subject: "english", title: "English - 071738", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071738.png", type: "image", desc: "Click to enlarge" },
-    { id: 30, subject: "english", title: "English - 071744", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071744.png", type: "image", desc: "Click to enlarge" },
-    { id: 31, subject: "english", title: "English - 071751", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/english/Screenshot%202026-04-24%20071751.png", type: "image", desc: "Click to enlarge" },
-  ];
-
-  let currentSubject = "math";
-
-  function escapeHtml(str) {
-    if (!str) return "";
-    return str.replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
-  }
-  function saveToLocal() { localStorage.setItem("noteshub_visual_v12", JSON.stringify(notesData)); }
-  function loadFromLocal() {
-    const stored = localStorage.getItem("noteshub_visual_v12");
-    if (stored) { try { const s = JSON.parse(stored); notesData.length = 0; s.forEach(i => notesData.push(i)); } catch(e){} }
-  }
-  loadFromLocal();
-
-  // ─── RENDER ───────────────────────────────────────────────────────────────────
-  function renderNotes() {
-    const filtered = notesData.filter(n => n.subject === currentSubject);
-    const grid = document.getElementById("notesGrid");
-    const titles = { math: "📐 Mathematics", physics: "⚛️ Physics", chemistry: "🧪 Chemistry", english: "📖 English" };
-    document.getElementById("activeSubjectTitle").innerHTML = titles[currentSubject] || "Notes";
-
-    if (filtered.length === 0) {
-      grid.innerHTML = `<div class="empty-message"><i class="fas fa-camera" style="font-size:2rem;"></i><p>No notes yet. Click "Add New Note".</p></div>`;
-      return;
-    }
-
-    grid.innerHTML = filtered.map(note => {
-      const isVideo = note.type === "video" || /\.(mp4|mov|avi|webm)$/i.test(note.url || "");
-      const mediaHtml = isVideo
-        ? `<div class="card-video-thumb"><i class="fas fa-play-circle"></i><span>🎥 ${escapeHtml(note.title)}</span></div>`
-        : `<img class="card-img" src="${escapeHtml(note.url)}" alt="${escapeHtml(note.title)}" loading="lazy" onerror="this.src='https://placehold.co/600x400/ffd9e8/b13e6b?text=Load+Error';">`;
-
-      return `
-      <div class="note-card" data-id="${note.id}" data-url="${escapeHtml(note.url)}" data-type="${isVideo ? 'video' : 'image'}">
-        ${mediaHtml}
-        <div class="card-info">
-          <div class="card-title">
-            <span>${escapeHtml(note.title)}</span>
-            <div class="action-buttons">
-              <button class="edit-btn" data-id="${note.id}"><i class="fas fa-pencil-alt"></i></button>
-              <button class="delete-btn" data-id="${note.id}"><i class="fas fa-trash-alt"></i></button>
-            </div>
+  grid.innerHTML=filtered.map(note=>{
+    const isVid=note.type==="video"||/\.(mp4|mov|avi|webm)$/i.test(note.url||"");
+    const media=isVid
+      ?`<div class="card-video-thumb"><i class="fas fa-play-circle"></i><span>${esc(note.title)}</span></div>`
+      :`<img class="card-img" src="${esc(note.url)}" alt="${esc(note.title)}" loading="lazy" onerror="this.src='https://placehold.co/600x400/ffd9e8/b13e6b?text=Load+Error';">`;
+    return`<div class="note-card" data-id="${note.id}" data-url="${esc(note.url)}" data-type="${isVid?'video':'image'}">
+      ${media}
+      <div class="card-info">
+        <div class="card-title"><span>${esc(note.title)}</span>
+          <div class="action-buttons">
+            <button class="edit-btn"   data-id="${note.id}"><i class="fas fa-pencil-alt"></i></button>
+            <button class="delete-btn" data-id="${note.id}"><i class="fas fa-trash-alt"></i></button>
           </div>
-          <div class="card-desc">${escapeHtml(note.desc)}</div>
         </div>
-      </div>`;
-    }).join("");
-
-    document.querySelectorAll('.note-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.edit-btn') || e.target.closest('.delete-btn')) return;
-        openMediaModal(card.dataset.url, card.dataset.type);
-      });
-    });
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => { e.stopPropagation(); editNoteById(parseInt(btn.dataset.id)); });
-    });
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (confirm("Delete this note?")) {
-          const idx = notesData.findIndex(n => n.id === parseInt(btn.dataset.id));
-          if (idx !== -1) notesData.splice(idx, 1);
-          saveToLocal(); renderNotes(); showToast("Note deleted.");
-        }
-      });
-    });
-  }
-
-  function editNoteById(id) {
-    const note = notesData.find(n => n.id === id);
-    if (!note) return;
-    const newTitle = prompt("Edit title:", note.title);
-    if (newTitle !== null && newTitle.trim()) note.title = newTitle.trim();
-    const newUrl = prompt("Edit URL (image/video link):", note.url);
-    if (newUrl !== null && newUrl.trim()) {
-      note.url = newUrl.trim();
-      note.type = /\.(mp4|mov|avi|webm)$/i.test(newUrl) ? "video" : "image";
-    }
-    saveToLocal(); renderNotes(); showToast("Note updated!");
-  }
-
-  function addNewNote() {
-    const title = prompt("Enter a title for this note:");
-    if (!title || !title.trim()) return;
-    const url = prompt("Paste your media URL (direct image or video link):");
-    if (!url || !url.trim()) { showToast("URL required."); return; }
-    const type = /\.(mp4|mov|avi|webm)$/i.test(url) ? "video" : "image";
-    notesData.push({ id: Date.now(), subject: currentSubject, title: title.trim(), url: url.trim(), type, desc: "Click to enlarge" });
-    saveToLocal(); renderNotes(); showToast("✅ New note added!");
-  }
-
-  // ─── MODAL ────────────────────────────────────────────────────────────────────
-  const modalOverlay = document.getElementById("mediaModal");
-  const modalContent = document.getElementById("modalContent");
-
-  function openMediaModal(url, type) {
-    modalContent.innerHTML = "";
-    if (type === "video") {
-      const video = document.createElement("video");
-      video.src = url;
-      video.controls = true;
-      video.autoplay = true;
-      video.style.cssText = "max-width:100%;max-height:85vh;";
-      modalContent.appendChild(video);
-    } else {
-      const img = document.createElement("img");
-      img.src = url;
-      img.style.cssText = "max-width:100%;max-height:85vh;";
-      modalContent.appendChild(img);
-    }
-    modalOverlay.classList.add("active");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeMediaModal() {
-    modalOverlay.classList.remove("active");
-    modalContent.innerHTML = "";
-    document.body.style.overflow = "";
-  }
-
-  document.getElementById("closeMediaModal").addEventListener("click", closeMediaModal);
-  modalOverlay.addEventListener("click", (e) => { if (e.target === modalOverlay) closeMediaModal(); });
-
-  // ─── TOAST ────────────────────────────────────────────────────────────────────
-  function showToast(msg, dur = 2800) {
-    const t = document.createElement("div");
-    t.innerText = msg;
-    t.style.cssText = "position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e1a2e;color:#fff;padding:10px 22px;border-radius:50px;font-size:0.85rem;z-index:3000;box-shadow:0 6px 14px rgba(0,0,0,0.25);white-space:nowrap;";
-    document.body.appendChild(t);
-    setTimeout(() => t.remove(), dur);
-  }
-
-  // ─── SUBJECT TABS ─────────────────────────────────────────────────────────────
-  document.querySelectorAll(".subject-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".subject-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      currentSubject = btn.dataset.subj;
-      renderNotes();
-    });
+        <div class="card-desc">${esc(note.desc)}</div>
+      </div>
+    </div>`;
+  }).join("");
+  grid.querySelectorAll('.note-card').forEach(card=>{
+    card.addEventListener('click',e=>{if(e.target.closest('.edit-btn,.delete-btn'))return;openModal(card.dataset.url,card.dataset.type);});
   });
+  grid.querySelectorAll('.edit-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();editNote(+btn.dataset.id);}));
+  grid.querySelectorAll('.delete-btn').forEach(btn=>btn.addEventListener('click',e=>{
+    e.stopPropagation();if(!confirm("Delete this note?"))return;
+    const i=notesData.findIndex(n=>n.id===+btn.dataset.id);if(i!==-1)notesData.splice(i,1);
+    save();renderNotes();showToast("Deleted.");
+  }));
+}
+function editNote(id){
+  const n=notesData.find(x=>x.id===id);if(!n)return;
+  const t=prompt("Title:",n.title);if(t?.trim())n.title=t.trim();
+  const u=prompt("URL:",n.url);if(u?.trim()){n.url=u.trim();n.type=/\.(mp4|mov|avi|webm)$/i.test(u)?"video":"image";}
+  save();renderNotes();showToast("Updated!");
+}
+document.getElementById("addNoteBtn").addEventListener("click",()=>{
+  const title=prompt("Title:");if(!title?.trim())return;
+  const url=prompt("Paste image or video URL:");if(!url?.trim()){showToast("URL required.");return;}
+  notesData.push({id:Date.now(),subject:currentSubject,title:title.trim(),url:url.trim(),type:/\.(mp4|mov|avi|webm)$/i.test(url)?"video":"image",desc:"Click to enlarge"});
+  save();renderNotes();showToast("✅ Added!");
+});
+document.querySelectorAll(".subject-btn").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".subject-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");currentSubject=btn.dataset.subj;renderNotes();
+}));
 
-  document.getElementById("addNoteBtn").addEventListener("click", addNewNote);
+// ─── MODAL ───────────────────────────────────────────────────────────────────
+const modalOverlay=document.getElementById("mediaModal"),modalContent=document.getElementById("modalContent");
+function openModal(url,type){
+  modalContent.innerHTML="";
+  const el=document.createElement(type==="video"?"video":"img");
+  el.src=url;if(type==="video"){el.controls=true;el.autoplay=true;}
+  modalContent.appendChild(el);modalOverlay.classList.add("active");document.body.style.overflow="hidden";
+}
+function closeModal(){modalOverlay.classList.remove("active");modalContent.innerHTML="";document.body.style.overflow="";}
+document.getElementById("closeModal").addEventListener("click",closeModal);
+modalOverlay.addEventListener("click",e=>{if(e.target===modalOverlay)closeModal();});
 
-  // ─── FILE SELECTION ───────────────────────────────────────────────────────────
-  const galleryInput = document.getElementById("galleryInput");
-  const cameraInput  = document.getElementById("cameraInput");
-  const uploadStatus  = document.getElementById("uploadStatus");
-  const previewContainer = document.getElementById("previewContainer");
-  const progressWrap = document.getElementById("progressWrap");
-  const progressBar  = document.getElementById("progressBar");
-  let selectedFiles = [];
+// ─── STATUS / PROGRESS ───────────────────────────────────────────────────────
+const statusEl=document.getElementById("uploadStatus"),
+      progressWrap=document.getElementById("progressWrap"),
+      progressBar=document.getElementById("progressBar");
+function setStatus(msg,err=false){statusEl.textContent=msg;statusEl.className=err?"err":"";}
+function setProgress(pct){
+  progressWrap.style.display="block";progressBar.style.width=pct+"%";
+  if(pct>=100)setTimeout(()=>{progressWrap.style.display="none";progressBar.style.width="0%";},900);
+}
 
-  function setProgress(pct) {
-    progressWrap.style.display = "block";
-    progressBar.style.width = pct + "%";
-    if (pct >= 100) setTimeout(() => { progressWrap.style.display = "none"; progressBar.style.width = "0%"; }, 800);
-  }
+// ─── IMAGE UPLOAD → ImgBB ────────────────────────────────────────────────────
+function compressImage(file,maxDim=1200,q=0.75){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();r.onload=e=>{
+      const img=new Image();img.onload=()=>{
+        let{width:w,height:h}=img;
+        if(w>maxDim||h>maxDim){if(w>h){h=h*maxDim/w;w=maxDim;}else{w=w*maxDim/h;h=maxDim;}}
+        const c=document.createElement("canvas");c.width=w;c.height=h;
+        c.getContext("2d").drawImage(img,0,0,w,h);
+        c.toBlob(b=>b?res(b):rej(new Error("Compress failed")),"image/jpeg",q);
+      };
+      img.onerror=()=>rej(new Error("Image load failed"));img.src=e.target.result;
+    };
+    r.onerror=()=>rej(new Error("File read failed"));r.readAsDataURL(file);
+  });
+}
+async function uploadImageToImgbb(blob){
+  const fd=new FormData();fd.append("image",blob);fd.append("key",IMGBB_KEY);
+  const r=await fetch("https://api.imgbb.com/1/upload",{method:"POST",body:fd});
+  const d=await r.json();
+  if(d.success&&d.data?.url)return d.data.url;
+  throw new Error("ImgBB: "+(d.error?.message||"unknown error"));
+}
 
-  function addFilesToQueue(files) {
-    Array.from(files).forEach(file => {
-      if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) return;
-      const type = file.type.startsWith("image/") ? "image" : "video";
-      selectedFiles.push({ file, type });
+// ─── VIDEO UPLOAD → GoFile ───────────────────────────────────────────────────
+// GoFile: free, no account, CORS-friendly, up to several GB, permanent links
+async function uploadVideoToGoFile(file, onProgress){
+  // Step 1: get best server
+  const serverRes = await fetch("https://api.gofile.io/servers");
+  const serverData = await serverRes.json();
+  if(serverData.status !== "ok") throw new Error("GoFile: can't get server – "+serverData.status);
+  const server = serverData.data.servers[0].name; // e.g. "store6"
 
-      const div = document.createElement("div");
-      if (type === "image") {
-        const img = document.createElement("img");
-        img.className = "preview-thumb";
-        img.title = file.name;
-        const reader = new FileReader();
-        reader.onload = (ev) => img.src = ev.target.result;
-        reader.readAsDataURL(file);
-        div.appendChild(img);
+  // Step 2: upload to that server
+  return new Promise((resolve, reject)=>{
+    const fd = new FormData();
+    fd.append("file", file);
+    // optional: fd.append("folderId", "..."); // to organise uploads
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `https://${server}.gofile.io/contents/uploadfile`, true);
+
+    xhr.upload.onprogress = e => {
+      if(e.lengthComputable && onProgress) onProgress(Math.round(e.loaded/e.total*100));
+    };
+
+    xhr.onload = () => {
+      if(xhr.status === 200){
+        try{
+          const d = JSON.parse(xhr.responseText);
+          if(d.status === "ok" && d.data?.downloadPage){
+            resolve(d.data.downloadPage); // e.g. https://gofile.io/d/aBcDeF
+          } else {
+            reject(new Error("GoFile: "+(d.status||JSON.stringify(d).slice(0,120))));
+          }
+        }catch(e){
+          reject(new Error("GoFile bad response: "+xhr.responseText.slice(0,120)));
+        }
       } else {
-        const icon = document.createElement("div");
-        icon.className = "preview-video-icon";
-        icon.innerHTML = '<i class="fas fa-video" style="font-size:22px;"></i><span style="display:block;font-size:10px;margin-top:4px;">Video</span>';
-        div.appendChild(icon);
+        reject(new Error("GoFile HTTP "+xhr.status));
       }
-      previewContainer.appendChild(div);
-    });
-    if (files.length > 0) showToast(`${files.length} file(s) queued. Tap "Upload All".`);
+    };
+    xhr.onerror   = ()=>reject(new Error("GoFile: network error – check internet"));
+    xhr.ontimeout = ()=>reject(new Error("GoFile: timed out – try a smaller file"));
+    xhr.timeout   = 600000; // 10 min
+    xhr.send(fd);
+  });
+}
+
+// ─── SEND EMAIL → FormSubmit ─────────────────────────────────────────────────
+async function sendAdminEmail(items, subject){
+  const lines = items.map(i=>`${i.type==="image"?"📷 IMAGE":"🎥 VIDEO"}\nFile: ${i.name}\nLink: ${i.url}\n`).join("\n");
+  const body = {
+    name: "NOTESHUBS Student",
+    subject_label: subject,
+    files: lines,
+    _subject: `📖 NOTESHUBS: ${items.length} file(s) uploaded – ${subject}`,
+    _captcha: "false",
+    _template: "table"
+  };
+  const res = await fetch(`https://formsubmit.co/ajax/${ADMIN_EMAIL}`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(body)
+  });
+  const d = await res.json();
+  if(d.success !== "true" && d.success !== true) throw new Error("FormSubmit: "+JSON.stringify(d));
+}
+
+// ─── FILE QUEUE ──────────────────────────────────────────────────────────────
+let selectedFiles=[];
+function queueFiles(files){
+  Array.from(files).forEach(file=>{
+    if(!file.type.startsWith("image/")&&!file.type.startsWith("video/"))return;
+    const type=file.type.startsWith("video/")?"video":"image";
+    selectedFiles.push({file,type});
+    const wrap=document.createElement("div");
+    if(type==="image"){
+      const img=document.createElement("img");img.className="preview-thumb";
+      const r=new FileReader();r.onload=e=>img.src=e.target.result;r.readAsDataURL(file);
+      wrap.appendChild(img);
+    }else{
+      const v=document.createElement("div");v.className="preview-video-icon";
+      v.innerHTML='<i class="fas fa-video"></i><span>Video</span>';wrap.appendChild(v);
+    }
+    document.getElementById("previewContainer").appendChild(wrap);
+  });
+  if(files.length)showToast(`${files.length} file(s) queued. Tap "Upload All".`);
+}
+document.getElementById("galleryBtn").addEventListener("click",()=>document.getElementById("galleryInput").click());
+document.getElementById("galleryInput").addEventListener("change",e=>{queueFiles(e.target.files);e.target.value="";});
+document.getElementById("cameraBtn").addEventListener("click",()=>{document.getElementById("cameraInput").value="";document.getElementById("cameraInput").click();});
+document.getElementById("cameraInput").addEventListener("change",e=>{queueFiles(e.target.files);e.target.value="";});
+
+// ─── MAIN UPLOAD HANDLER ─────────────────────────────────────────────────────
+document.getElementById("uploadBtn").addEventListener("click", async ()=>{
+  if(!selectedFiles.length){showToast("Select at least one file first.");return;}
+
+  const uploadBtn=document.getElementById("uploadBtn");
+  uploadBtn.disabled=true;
+  setStatus(`⏳ Uploading ${selectedFiles.length} file(s)…`);
+  setProgress(0);
+
+  let success=0,fail=0;
+  const uploaded=[];
+
+  for(let i=0;i<selectedFiles.length;i++){
+    const{file,type}=selectedFiles[i];
+    setStatus(`[${i+1}/${selectedFiles.length}] Uploading "${file.name}"…`);
+    try{
+      let url;
+      if(type==="image"){
+        // Images → ImgBB (instant, no setup)
+        setStatus(`[${i+1}/${selectedFiles.length}] 📷 Compressing & uploading "${file.name}"…`);
+        const blob=await compressImage(file);
+        url=await uploadImageToImgbb(blob);
+      }else{
+        // Videos → GoFile (CORS-friendly, free, permanent link)
+        url=await uploadVideoToGoFile(file, pct=>{
+          setProgress(pct);
+          setStatus(`[${i+1}/${selectedFiles.length}] 🎥 "${file.name}" – ${pct}%`);
+        });
+      }
+
+      uploaded.push({name:file.name,url,type});
+      success++;
+      setProgress(Math.round((i+1)/selectedFiles.length*100));
+      setStatus(`✅ "${file.name}" uploaded!`);
+
+    }catch(err){
+      fail++;
+      console.error("Upload error:",err);
+      setStatus(`❌ "${file.name}" failed: ${err.message}`,true);
+      await new Promise(r=>setTimeout(r,2500));
+    }
   }
 
-  document.getElementById("galleryBtn").addEventListener("click", () => galleryInput.click());
-  galleryInput.addEventListener("change", (e) => { if (e.target.files.length) addFilesToQueue(e.target.files); galleryInput.value = ""; });
-
-  document.getElementById("cameraBtn").addEventListener("click", () => { cameraInput.value = ""; cameraInput.click(); });
-  cameraInput.addEventListener("change", (e) => { if (e.target.files.length) addFilesToQueue(e.target.files); cameraInput.value = ""; });
-
-  // ─── UPLOAD ───────────────────────────────────────────────────────────────────
-  document.getElementById("uploadBtn").addEventListener("click", async () => {
-    if (selectedFiles.length === 0) { showToast("Please select at least one file first.", 3000); return; }
-
-    uploadStatus.style.color = "#2b7a3e";
-    uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Starting upload of ${selectedFiles.length} file(s)...`;
-    setProgress(0);
-
-    const uploadedItems = [];
-    let successCount = 0;
-    let failCount = 0;
-
-    for (let i = 0; i < selectedFiles.length; i++) {
-      const { file, type } = selectedFiles[i];
-      uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> [${i+1}/${selectedFiles.length}] Uploading "${file.name}"...`;
-
-      try {
-        let url;
-        if (type === "image") {
-          const compressed = await compressImage(file);
-          url = await uploadImageToImgbb(compressed);
-        } else {
-          // Video — show per-file progress
-          url = await uploadVideo(file, (pct) => {
-            setProgress(pct);
-            uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> [${i+1}/${selectedFiles.length}] Video "${file.name}" – ${pct}%`;
-          });
-        }
-
-        // Auto-add to current subject
-        const newNote = {
-          id: Date.now() + Math.random(),
-          subject: currentSubject,
-          title: file.name.replace(/\.[^.]+$/, "").slice(0, 40),
-          url,
-          type,
-          desc: "Click to enlarge"
-        };
-        notesData.push(newNote);
-        saveToLocal();
-        renderNotes();
-
-        uploadedItems.push({ name: file.name, url, type });
-        successCount++;
-        setProgress(Math.round(((i + 1) / selectedFiles.length) * 100));
-        uploadStatus.innerHTML = `<i class="fas fa-check" style="color:#2b7a3e;"></i> "${file.name}" uploaded!`;
-
-      } catch (err) {
-        failCount++;
-        console.error("Upload error:", err);
-        uploadStatus.style.color = "#c0392b";
-        uploadStatus.innerHTML = `❌ "${file.name}" failed: ${err.message}`;
-        await new Promise(r => setTimeout(r, 1500));
-        uploadStatus.style.color = "#2b7a3e";
-      }
+  // ── Email admin all links (images + videos together) ──
+  if(uploaded.length>0){
+    setStatus("📧 Sending email to admin…");
+    try{
+      await sendAdminEmail(uploaded, currentSubject.toUpperCase());
+      setStatus(`✅ ${success} file(s) uploaded & admin notified!${fail?` (${fail} failed)`:""}`,false);
+      showToast(`✅ Done! Admin emailed ${success} link(s).`);
+    }catch(emailErr){
+      console.error("Email error:",emailErr);
+      // Upload worked, just email failed – still tell user the links
+      const linkList=uploaded.map(u=>u.url).join("\n");
+      setStatus(`✅ ${success} uploaded. Email failed – save these links:\n${linkList}`,false);
+      showToast(`✅ Uploaded! (Email notify failed – check console)`);
     }
+  }else{
+    setStatus("❌ All uploads failed. Check your internet connection.",true);
+    showToast("Upload failed. Check network.");
+  }
 
-    // Notify admin via email
-    if (successCount > 0) {
-      const links = uploadedItems.map(i => `${i.type === "image" ? "📷" : "🎥"} ${i.name}: ${i.url}`).join("\n");
-      try {
-        await fetch("https://formsubmit.co/ajax/sammanlamsal31@gmail.com", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: "Class12_Student",
-            message: `${successCount} file(s) uploaded for ${currentSubject.toUpperCase()}.\n\n${links}`,
-            _subject: `📖 NOTESHUBS: ${successCount} New File(s) – ${currentSubject.toUpperCase()}`,
-            _captcha: "false",
-            _template: "table"
-          })
-        });
-      } catch (e) { /* email optional */ }
+  uploadBtn.disabled=false;
+  selectedFiles=[];
+  document.getElementById("previewContainer").innerHTML="";
+  setTimeout(()=>setStatus(""),12000);
+});
 
-      uploadStatus.style.color = "#2b7a3e";
-      uploadStatus.innerHTML = `✅ ${successCount} file(s) uploaded & added to notes!${failCount ? ` (${failCount} failed)` : ""}`;
-      showToast(`✅ ${successCount} file(s) uploaded successfully!`);
-    } else {
-      uploadStatus.style.color = "#c0392b";
-      uploadStatus.innerHTML = `❌ All uploads failed. Check your internet and try again.`;
-      showToast("Upload failed. Check network.");
-    }
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+function showToast(msg,dur=3000){
+  const t=document.createElement("div");t.textContent=msg;
+  t.style.cssText="position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1e1a2e;color:#fff;padding:9px 22px;border-radius:40px;font-size:0.83rem;z-index:3000;box-shadow:0 6px 14px rgba(0,0,0,0.22);white-space:nowrap;";
+  document.body.appendChild(t);setTimeout(()=>t.remove(),dur);
+}
 
-    setTimeout(() => { uploadStatus.innerHTML = ""; uploadStatus.style.color = "#2b7a3e"; }, 8000);
-    selectedFiles = [];
-    previewContainer.innerHTML = "";
-  });
-
-  renderNotes();
+renderNotes();
 </script>
 </body>
 </html>
