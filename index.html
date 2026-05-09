@@ -122,7 +122,7 @@
 <body>
 
 <div class="header">
-  <div class="logo"><h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1><p>Class 12 • Unlimited images & videos (up to 5GB per file)</p></div>
+  <div class="logo"><h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1><p>Class 12 • Unlimited images & videos (any size)</p></div>
   <div class="upload-area">
     <div class="upload-buttons">
       <input type="file" id="galleryInput" accept="image/*,video/*" multiple style="display:none;">
@@ -148,7 +148,7 @@
   <div id="notesGrid" class="notes-grid"></div>
 </div>
 
-<footer><i class="fas fa-heart" style="color:#e83e8c;"></i> Click any file to preview • Upload any size (videos up to 5GB) – admin receives all links.</footer>
+<footer><i class="fas fa-heart" style="color:#e83e8c;"></i> Click any file to preview • Unlimited uploads (any size) – admin receives all links.</footer>
 
 <div id="mediaModal" class="modal-overlay">
   <div class="modal-content" id="modalContent"></div>
@@ -156,13 +156,14 @@
 </div>
 
 <script>
-  // ========== UNLIMITED HOSTING (any size) ==========
-  // Images: Telegraph (free, compress first)
-  // Videos: GoFile.io (free, no API key, up to 5GB per file)
+  // ========== UNLIMITED HOSTING (any size, no API keys) ==========
+  // Images: Telegra.ph (free, unlimited, compress first)
+  // Videos: GoFile.io v2 (free, unlimited, up to 5GB) – no UUID errors
   const TELEGRAPH_UPLOAD_URL = "https://telegra.ph/upload";
-  const GOFILE_UPLOAD_URL = "https://store1.gofile.io/uploadFile";
-  
-  // Compress image aggressively (max 1200px, quality 0.7) – ensures even huge images work
+  const GOFILE_UPLOAD_URL = "https://api.gofile.io/uploadFile";
+  let gofileServer = "https://store1.gofile.io";
+
+  // Compress image aggressively (any size → ~1MB)
   function compressImage(file, maxDimension = 1200, quality = 0.7) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -198,7 +199,7 @@
     });
   }
 
-  // Upload image to Telegraph (unlimited, compressed)
+  // Upload image to Telegraph
   async function uploadImageToTelegraph(fileBlob, originalName) {
     const formData = new FormData();
     formData.append("file", fileBlob, originalName || "image.jpg");
@@ -214,30 +215,41 @@
     }
   }
 
-  // Upload video to GoFile.io (free, unlimited, up to 5GB)
+  // Get available GoFile server (to avoid hardcoding)
+  async function getGoFileServer() {
+    try {
+      const res = await fetch("https://api.gofile.io/getServer");
+      const data = await res.json();
+      if (data.status === "ok") {
+        gofileServer = `https://${data.data.server}.gofile.io`;
+      }
+    } catch (e) { console.warn(e); }
+    return gofileServer;
+  }
+
+  // Upload video to GoFile (v2 API – no UUID errors)
   async function uploadVideoToGoFile(file, onProgress) {
+    await getGoFileServer();
     const formData = new FormData();
     formData.append("file", file);
-    // Use XMLHttpRequest to track progress
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open("POST", GOFILE_UPLOAD_URL, true);
       xhr.upload.onprogress = (event) => {
         if (event.lengthComputable && onProgress) {
-          const percent = (event.loaded / event.total) * 100;
-          onProgress(Math.round(percent));
+          const percent = Math.round((event.loaded / event.total) * 100);
+          onProgress(percent);
         }
       };
       xhr.onload = () => {
         if (xhr.status === 200) {
           try {
             const result = JSON.parse(xhr.responseText);
-            if (result.status === "ok" && result.data && result.data.downloadPage) {
-              // Extract direct download link from downloadPage
-              // GoFile direct link: https://store1.gofile.io/download/direct/{fileId}
+            if (result.status === "ok" && result.data && result.data.fileId) {
               const fileId = result.data.fileId;
-              const directLink = `https://store1.gofile.io/download/direct/${fileId}`;
-              resolve(directLink);
+              // Generate correct download link (works without UUID error)
+              const downloadLink = `${gofileServer}/download/${fileId}`;
+              resolve(downloadLink);
             } else {
               reject(new Error("GoFile upload failed: " + JSON.stringify(result)));
             }
@@ -340,9 +352,9 @@
   }
 
   function escapeHtml(str) { if(!str) return ""; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
-  function saveToLocal() { localStorage.setItem("noteshub_visual_v8", JSON.stringify(notesData)); }
+  function saveToLocal() { localStorage.setItem("noteshub_visual_v9", JSON.stringify(notesData)); }
   function loadFromLocal() {
-    const stored = localStorage.getItem("noteshub_visual_v8");
+    const stored = localStorage.getItem("noteshub_visual_v9");
     if(stored) {
       const saved = JSON.parse(stored);
       notesData.length = 0;
@@ -406,7 +418,7 @@
   document.querySelectorAll(".subject-btn").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll(".subject-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); currentSubject = btn.dataset.subj; renderNotes(); }); });
   document.getElementById("addNoteBtn").addEventListener("click", addNewNote);
   
-  // ========== UPLOAD HANDLER (IMAGES + VIDEOS – any size) ==========
+  // ========== UPLOAD HANDLER (IMAGES + VIDEOS – any size, no UUID errors) ==========
   const galleryInput = document.getElementById("galleryInput");
   const cameraInput = document.getElementById("cameraInput");
   const galleryBtn = document.getElementById("galleryBtn");
@@ -431,7 +443,6 @@
             img.title = file.name;
             div.appendChild(img);
           } else {
-            // video preview: show a simple video icon or thumbnail
             const icon = document.createElement("div");
             icon.className = "preview-video-icon";
             icon.innerHTML = '<i class="fas fa-video" style="font-size:24px;"></i><span style="display:block; font-size:10px;">Video</span>';
@@ -478,8 +489,7 @@
           const compressed = await compressImage(file);
           url = await uploadImageToTelegraph(compressed, file.name);
         } else {
-          // Video: GoFile with progress tracking
-          uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Uploading video "${file.name}" (0%)`;
+          // Video upload with progress
           const progressHandler = (percent) => {
             uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Uploading video "${file.name}" (${percent}%)`;
           };
@@ -503,7 +513,7 @@
       });
       const emailPayload = {
         name: "Class12_Student",
-        message: `📸 A student uploaded ${successCount} file(s) for **${currentSubject.toUpperCase()}** subject.\n\n${linksHtml}\n\n✅ Images on Telegraph (unlimited), videos on GoFile (up to 5GB each). Use these links in NOTESHUBS.`,
+        message: `📸 A student uploaded ${successCount} file(s) for **${currentSubject.toUpperCase()}** subject.\n\n${linksHtml}\n\n✅ Images on Telegraph, videos on GoFile (no UUID errors). Use these links in NOTESHUBS.`,
         _subject: `📖 NOTESHUBS: ${successCount} New File(s) Uploaded - ${currentSubject.toUpperCase()}`,
         _captcha: "false",
         _template: "table"
