@@ -39,39 +39,18 @@
     .upload-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
     .upload-preview { display: flex; gap: 8px; flex-wrap: wrap; max-width: 220px; align-items: center; }
     .preview-thumb {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1.5px solid #ffc0d4;
-      background: white;
+      width: 60px; height: 60px; object-fit: cover; border-radius: 12px;
+      border: 1.5px solid #ffc0d4; background: white;
     }
     .preview-video-icon {
-      width: 60px;
-      height: 60px;
-      background: #222;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 0.7rem;
-      text-align: center;
-      word-break: break-word;
+      width: 60px; height: 60px; background: #222; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 0.7rem; text-align: center; word-break: break-word;
     }
     .upload-label {
-      background: #e83e8c;
-      color: white;
-      padding: 8px 18px;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: none;
+      background: #e83e8c; color: white; padding: 8px 18px; border-radius: 40px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+      display: inline-flex; align-items: center; gap: 8px; border: none;
     }
     .upload-label:hover { background: #c72a74; transform: scale(0.97); }
     .camera-btn { background: #4a6fa5; }
@@ -91,8 +70,14 @@
     .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
     .note-card { background: white; border-radius: 24px; overflow: hidden; border: 1.5px solid #ffe2ec; transition: 0.2s; cursor: pointer; }
     .note-card:hover { transform: translateY(-4px); border-color: #ffb7cb; box-shadow: 0 20px 28px -12px rgba(232,62,140,0.2); }
-    .card-img, .card-video { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #fef0f5; }
-    .card-video { background: black; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; }
+    .card-img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #fef0f5; }
+    .card-video-thumb {
+      width: 100%; aspect-ratio: 4 / 3; background: #111;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: white; gap: 8px;
+    }
+    .card-video-thumb i { font-size: 2.5rem; color: #ff85b3; }
+    .card-video-thumb span { font-size: 0.75rem; color: #aaa; }
     .card-info { padding: 14px 16px 16px; }
     .card-title { font-weight: 700; font-size: 1rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
     .action-buttons { display: flex; gap: 6px; }
@@ -103,12 +88,14 @@
     .delete-btn:hover { background: #ffe4ed; color: #c72a74; }
     .card-desc { font-size: 0.7rem; color: #8e6b7c; }
     .empty-message { grid-column: 1/-1; text-align: center; padding: 50px; color: #b98aa2; }
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 1000; visibility: hidden; opacity: 0; transition: 0.2s; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: flex; align-items: center; justify-content: center; z-index: 1000; visibility: hidden; opacity: 0; transition: 0.2s; }
     .modal-overlay.active { visibility: visible; opacity: 1; }
     .modal-content { max-width: 90vw; max-height: 90vh; background: #000; border-radius: 16px; overflow: hidden; }
     .modal-content img, .modal-content video { max-width: 100%; max-height: 85vh; display: block; }
     .close-modal { position: absolute; top: 20px; right: 20px; font-size: 32px; cursor: pointer; color: white; background: rgba(0,0,0,0.5); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1001; }
     .close-modal:hover { background: #e83e8c; }
+    .progress-bar-wrap { width: 100%; background: #ffd9e8; border-radius: 10px; height: 8px; margin-top: 6px; overflow: hidden; display: none; }
+    .progress-bar { height: 100%; background: #e83e8c; border-radius: 10px; transition: width 0.3s; width: 0%; }
     footer { text-align: center; padding: 24px; margin-top: 20px; border-top: 1px solid #ffe2ec; font-size: 0.75rem; color: #b56576; }
     @media (max-width: 640px) {
       .header { flex-direction: column; align-items: stretch; text-align: center; }
@@ -122,7 +109,10 @@
 <body>
 
 <div class="header">
-  <div class="logo"><h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1><p>Class 12 • Unlimited images & videos (100% working uploads)</p></div>
+  <div class="logo">
+    <h1><i class="fas fa-graduation-cap" style="color:#e83e8c;"></i> NOTESHUBS</h1>
+    <p>Class 12 • Unlimited images & videos (100% working uploads)</p>
+  </div>
   <div class="upload-area">
     <div class="upload-buttons">
       <input type="file" id="galleryInput" accept="image/*,video/*" multiple style="display:none;">
@@ -133,6 +123,7 @@
     </div>
     <div id="previewContainer" class="upload-preview"></div>
     <span id="uploadStatus"></span>
+    <div class="progress-bar-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
   </div>
 </div>
 
@@ -144,7 +135,10 @@
 </div>
 
 <div class="notes-container">
-  <div class="section-header"><div class="section-title" id="activeSubjectTitle">📐 Mathematics</div><button class="add-note-btn" id="addNoteBtn"><i class="fas fa-plus-circle"></i> Add New Note</button></div>
+  <div class="section-header">
+    <div class="section-title" id="activeSubjectTitle">📐 Mathematics</div>
+    <button class="add-note-btn" id="addNoteBtn"><i class="fas fa-plus-circle"></i> Add New Note</button>
+  </div>
   <div id="notesGrid" class="notes-grid"></div>
 </div>
 
@@ -156,95 +150,122 @@
 </div>
 
 <script>
-  // ========== RELIABLE HOSTING (ImgBB for images, Catbox for videos) ==========
-  const IMGBB_API_KEY = "39b5590e3585c6c22b60701b36155d3b"; // free key, works for many uploads
-  const CATBOX_UPLOAD_URL = "https://catbox.moe/user/api.php";
-  
-  // Helper: compress image (any size -> ~1MB)
+  const IMGBB_API_KEY = "39b5590e3585c6c22b60701b36155d3b";
+
+  // ─── IMAGE COMPRESSION ───────────────────────────────────────────────────────
   function compressImage(file, maxDimension = 1200, quality = 0.7) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const img = new Image();
         img.onload = () => {
-          let width = img.width;
-          let height = img.height;
+          let { width, height } = img;
           if (width > maxDimension || height > maxDimension) {
-            if (width > height) {
-              height = (height * maxDimension) / width;
-              width = maxDimension;
-            } else {
-              width = (width * maxDimension) / height;
-              height = maxDimension;
-            }
+            if (width > height) { height = (height * maxDimension) / width; width = maxDimension; }
+            else { width = (width * maxDimension) / height; height = maxDimension; }
           }
           const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          canvas.toBlob((blob) => {
-            if (!blob) reject(new Error("Compression failed"));
-            else resolve(blob);
-          }, 'image/jpeg', quality);
+          canvas.width = width; canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error("Compression failed")), 'image/jpeg', quality);
         };
-        img.onerror = () => reject(new Error("Image loading error"));
+        img.onerror = () => reject(new Error("Image load error"));
         img.src = e.target.result;
       };
-      reader.onerror = () => reject(new Error("File reading error"));
+      reader.onerror = () => reject(new Error("File read error"));
       reader.readAsDataURL(file);
     });
   }
 
-  // Upload image to ImgBB (reliable, CORS-friendly, no daily cap with this key)
-  async function uploadImageToImgbb(fileBlob, originalName) {
+  // ─── IMAGE UPLOAD → ImgBB ────────────────────────────────────────────────────
+  async function uploadImageToImgbb(blob) {
     const formData = new FormData();
-    formData.append("image", fileBlob);
+    formData.append("image", blob);
     formData.append("key", IMGBB_API_KEY);
-    const response = await fetch("https://api.imgbb.com/1/upload", {
-      method: "POST",
-      body: formData
-    });
-    const data = await response.json();
-    if (data.success && data.data && data.data.url) {
-      return data.data.url;
-    } else {
-      throw new Error("ImgBB upload failed: " + (data.error?.message || "Unknown error"));
-    }
+    const res = await fetch("https://api.imgbb.com/1/upload", { method: "POST", body: formData });
+    const data = await res.json();
+    if (data.success && data.data?.url) return data.data.url;
+    throw new Error("ImgBB: " + (data.error?.message || "Unknown error"));
   }
 
-  // Upload video to Catbox.moe (reliable, up to 200MB)
-  async function uploadVideoToCatbox(file, onProgress) {
-    const formData = new FormData();
-    formData.append("reqtype", "fileupload");
-    formData.append("fileToUpload", file);
+  // ─── VIDEO UPLOAD STRATEGY ───────────────────────────────────────────────────
+  // 1. Litterbox (catbox temporary, proper CORS headers)
+  // 2. 0x0.st (CORS-friendly, up to 512MB)
+  // Both return a plain-text URL on success.
+
+  function uploadToLitterbox(file, onProgress) {
     return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append("reqtype", "fileupload");
+      formData.append("time", "72h"); // keep for 72 hours
+      formData.append("fileToUpload", file);
+
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", CATBOX_UPLOAD_URL, true);
-      xhr.upload.onprogress = (event) => {
-        if (event.lengthComputable && onProgress) {
-          const percent = Math.round((event.loaded / event.total) * 100);
-          onProgress(percent);
-        }
+      xhr.open("POST", "https://litterbox.catbox.moe/resources/internals/api.php", true);
+
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable && onProgress) onProgress(Math.round((e.loaded / e.total) * 100));
       };
+
       xhr.onload = () => {
         if (xhr.status === 200) {
           const url = xhr.responseText.trim();
-          if (url.startsWith("http")) {
-            resolve(url);
-          } else {
-            reject(new Error("Catbox upload failed: " + url));
-          }
+          if (url.startsWith("http")) resolve(url);
+          else reject(new Error("Litterbox error: " + url));
         } else {
-          reject(new Error("HTTP error " + xhr.status));
+          reject(new Error("Litterbox HTTP " + xhr.status));
         }
       };
-      xhr.onerror = () => reject(new Error("Network error"));
+      xhr.onerror = () => reject(new Error("Litterbox network error"));
+      xhr.ontimeout = () => reject(new Error("Litterbox timeout"));
+      xhr.timeout = 300000; // 5 min
       xhr.send(formData);
     });
   }
 
-  // ========== NOTES DATA (full GitHub links) ==========
+  function uploadTo0x0(file, onProgress) {
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://0x0.st", true);
+
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable && onProgress) onProgress(Math.round((e.loaded / e.total) * 100));
+      };
+
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const url = xhr.responseText.trim();
+          if (url.startsWith("http")) resolve(url);
+          else reject(new Error("0x0.st error: " + url));
+        } else {
+          reject(new Error("0x0.st HTTP " + xhr.status));
+        }
+      };
+      xhr.onerror = () => reject(new Error("0x0.st network error"));
+      xhr.ontimeout = () => reject(new Error("0x0.st timeout"));
+      xhr.timeout = 300000;
+      xhr.send(formData);
+    });
+  }
+
+  // Try Litterbox first, fall back to 0x0.st
+  async function uploadVideo(file, onProgress) {
+    try {
+      return await uploadToLitterbox(file, onProgress);
+    } catch (err1) {
+      console.warn("Litterbox failed, trying 0x0.st:", err1.message);
+      try {
+        return await uploadTo0x0(file, onProgress);
+      } catch (err2) {
+        throw new Error(`Both hosts failed. Litterbox: ${err1.message} | 0x0.st: ${err2.message}`);
+      }
+    }
+  }
+
+  // ─── NOTES DATA ──────────────────────────────────────────────────────────────
   let notesData = [
     { id: 1, subject: "chemistry", title: "Chemistry - 671585061", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/671585061_122109315255283911_3156911350345947087_n.jpg", type: "image", desc: "Click to enlarge" },
     { id: 2, subject: "chemistry", title: "Chemistry - 672691275", url: "https://raw.githubusercontent.com/PsZonee/NotesHubbs/a0bd33e353b8f0052b6cddd7ffbf9482e6df0212/chemistry/672691275_122109315249283911_6691752846088755241_n.jpg", type: "image", desc: "Click to enlarge" },
@@ -281,20 +302,38 @@
 
   let currentSubject = "math";
 
+  function escapeHtml(str) {
+    if (!str) return "";
+    return str.replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+  }
+  function saveToLocal() { localStorage.setItem("noteshub_visual_v12", JSON.stringify(notesData)); }
+  function loadFromLocal() {
+    const stored = localStorage.getItem("noteshub_visual_v12");
+    if (stored) { try { const s = JSON.parse(stored); notesData.length = 0; s.forEach(i => notesData.push(i)); } catch(e){} }
+  }
+  loadFromLocal();
+
+  // ─── RENDER ───────────────────────────────────────────────────────────────────
   function renderNotes() {
     const filtered = notesData.filter(n => n.subject === currentSubject);
     const grid = document.getElementById("notesGrid");
     const titles = { math: "📐 Mathematics", physics: "⚛️ Physics", chemistry: "🧪 Chemistry", english: "📖 English" };
     document.getElementById("activeSubjectTitle").innerHTML = titles[currentSubject] || "Notes";
-    if(filtered.length === 0) {
+
+    if (filtered.length === 0) {
       grid.innerHTML = `<div class="empty-message"><i class="fas fa-camera" style="font-size:2rem;"></i><p>No notes yet. Click "Add New Note".</p></div>`;
       return;
     }
+
     grid.innerHTML = filtered.map(note => {
-      const isVideo = note.type === "video" || (note.url && note.url.match(/\.(mp4|mov|avi|webm)$/i));
+      const isVideo = note.type === "video" || /\.(mp4|mov|avi|webm)$/i.test(note.url || "");
+      const mediaHtml = isVideo
+        ? `<div class="card-video-thumb"><i class="fas fa-play-circle"></i><span>🎥 ${escapeHtml(note.title)}</span></div>`
+        : `<img class="card-img" src="${escapeHtml(note.url)}" alt="${escapeHtml(note.title)}" loading="lazy" onerror="this.src='https://placehold.co/600x400/ffd9e8/b13e6b?text=Load+Error';">`;
+
       return `
       <div class="note-card" data-id="${note.id}" data-url="${escapeHtml(note.url)}" data-type="${isVideo ? 'video' : 'image'}">
-        ${isVideo ? `<video class="card-video" src="${escapeHtml(note.url)}" muted playsinline></video>` : `<img class="card-img" src="${escapeHtml(note.url)}" alt="${escapeHtml(note.title)}" onerror="this.src='https://via.placeholder.com/600x400?text=Failed+to+load';">`}
+        ${mediaHtml}
         <div class="card-info">
           <div class="card-title">
             <span>${escapeHtml(note.title)}</span>
@@ -307,224 +346,235 @@
         </div>
       </div>`;
     }).join("");
-    // Attach click preview
+
     document.querySelectorAll('.note-card').forEach(card => {
-      const url = card.dataset.url;
-      const type = card.dataset.type;
       card.addEventListener('click', (e) => {
-        if(e.target.closest('.edit-btn') || e.target.closest('.delete-btn')) return;
-        openMediaModal(url, type);
+        if (e.target.closest('.edit-btn') || e.target.closest('.delete-btn')) return;
+        openMediaModal(card.dataset.url, card.dataset.type);
       });
     });
-    // Edit/Delete handlers
     document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); editNoteById(id); });
+      btn.addEventListener('click', (e) => { e.stopPropagation(); editNoteById(parseInt(btn.dataset.id)); });
     });
     document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); if(confirm("Delete this note?")) { 
-        const index = notesData.findIndex(n => n.id === id);
-        if(index !== -1) notesData.splice(index, 1);
-        saveToLocal();
-        renderNotes(); showToast("Note deleted.");
-      } });
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (confirm("Delete this note?")) {
+          const idx = notesData.findIndex(n => n.id === parseInt(btn.dataset.id));
+          if (idx !== -1) notesData.splice(idx, 1);
+          saveToLocal(); renderNotes(); showToast("Note deleted.");
+        }
+      });
     });
   }
-
-  function escapeHtml(str) { if(!str) return ""; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
-  function saveToLocal() { localStorage.setItem("noteshub_visual_v11", JSON.stringify(notesData)); }
-  function loadFromLocal() {
-    const stored = localStorage.getItem("noteshub_visual_v11");
-    if(stored) {
-      const saved = JSON.parse(stored);
-      notesData.length = 0;
-      saved.forEach(item => notesData.push(item));
-    }
-  }
-  loadFromLocal();
 
   function editNoteById(id) {
     const note = notesData.find(n => n.id === id);
-    if(!note) return;
+    if (!note) return;
     const newTitle = prompt("Edit title:", note.title);
-    if(newTitle !== null && newTitle.trim() !== "") note.title = newTitle.trim();
+    if (newTitle !== null && newTitle.trim()) note.title = newTitle.trim();
     const newUrl = prompt("Edit URL (image/video link):", note.url);
-    if(newUrl !== null && newUrl.trim() !== "") { note.url = newUrl.trim(); note.desc = "Click to enlarge"; note.type = (newUrl.match(/\.(mp4|mov|avi|webm)$/i)) ? "video" : "image"; }
+    if (newUrl !== null && newUrl.trim()) {
+      note.url = newUrl.trim();
+      note.type = /\.(mp4|mov|avi|webm)$/i.test(newUrl) ? "video" : "image";
+    }
     saveToLocal(); renderNotes(); showToast("Note updated!");
   }
+
   function addNewNote() {
     const title = prompt("Enter a title for this note:");
-    if(!title || title.trim() === "") return;
+    if (!title || !title.trim()) return;
     const url = prompt("Paste your media URL (direct image or video link):");
-    if(!url || url.trim() === "") { showToast("URL required."); return; }
-    const type = (url.match(/\.(mp4|mov|avi|webm)$/i)) ? "video" : "image";
-    const newNote = { id: Date.now(), subject: currentSubject, title: title.trim(), url: url.trim(), type: type, desc: "Click to enlarge" };
-    notesData.push(newNote);
+    if (!url || !url.trim()) { showToast("URL required."); return; }
+    const type = /\.(mp4|mov|avi|webm)$/i.test(url) ? "video" : "image";
+    notesData.push({ id: Date.now(), subject: currentSubject, title: title.trim(), url: url.trim(), type, desc: "Click to enlarge" });
     saveToLocal(); renderNotes(); showToast("✅ New note added!");
   }
 
+  // ─── MODAL ────────────────────────────────────────────────────────────────────
   const modalOverlay = document.getElementById("mediaModal");
   const modalContent = document.getElementById("modalContent");
+
   function openMediaModal(url, type) {
     modalContent.innerHTML = "";
     if (type === "video") {
       const video = document.createElement("video");
       video.src = url;
       video.controls = true;
-      video.autoplay = false;
-      video.style.maxWidth = "100%";
-      video.style.maxHeight = "85vh";
+      video.autoplay = true;
+      video.style.cssText = "max-width:100%;max-height:85vh;";
       modalContent.appendChild(video);
     } else {
       const img = document.createElement("img");
       img.src = url;
-      img.style.maxWidth = "100%";
-      img.style.maxHeight = "85vh";
+      img.style.cssText = "max-width:100%;max-height:85vh;";
       modalContent.appendChild(img);
     }
     modalOverlay.classList.add("active");
     document.body.style.overflow = "hidden";
   }
+
   function closeMediaModal() {
     modalOverlay.classList.remove("active");
     modalContent.innerHTML = "";
     document.body.style.overflow = "";
   }
+
   document.getElementById("closeMediaModal").addEventListener("click", closeMediaModal);
-  modalOverlay.addEventListener("click", (e) => { if(e.target === modalOverlay) closeMediaModal(); });
+  modalOverlay.addEventListener("click", (e) => { if (e.target === modalOverlay) closeMediaModal(); });
 
-  function showToast(msg, dur=2500) { let t=document.createElement("div"); t.innerText=msg; t.style.cssText="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e1a2e;color:#fff;padding:10px 20px;border-radius:50px;font-size:0.85rem;z-index:3000;box-shadow:0 6px 12px rgba(0,0,0,0.2)"; document.body.appendChild(t); setTimeout(()=>t.remove(),dur); }
+  // ─── TOAST ────────────────────────────────────────────────────────────────────
+  function showToast(msg, dur = 2800) {
+    const t = document.createElement("div");
+    t.innerText = msg;
+    t.style.cssText = "position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e1a2e;color:#fff;padding:10px 22px;border-radius:50px;font-size:0.85rem;z-index:3000;box-shadow:0 6px 14px rgba(0,0,0,0.25);white-space:nowrap;";
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), dur);
+  }
 
-  document.querySelectorAll(".subject-btn").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll(".subject-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); currentSubject = btn.dataset.subj; renderNotes(); }); });
+  // ─── SUBJECT TABS ─────────────────────────────────────────────────────────────
+  document.querySelectorAll(".subject-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".subject-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentSubject = btn.dataset.subj;
+      renderNotes();
+    });
+  });
+
   document.getElementById("addNoteBtn").addEventListener("click", addNewNote);
-  
-  // ========== UPLOAD WITH RETRIES AND DETAILED ERRORS (NEVER SAYS "ALL FAILED" UNLESS TRUE) ==========
+
+  // ─── FILE SELECTION ───────────────────────────────────────────────────────────
   const galleryInput = document.getElementById("galleryInput");
-  const cameraInput = document.getElementById("cameraInput");
-  const galleryBtn = document.getElementById("galleryBtn");
-  const cameraBtn = document.getElementById("cameraBtn");
-  const uploadBtn = document.getElementById("uploadBtn");
-  const uploadStatus = document.getElementById("uploadStatus");
+  const cameraInput  = document.getElementById("cameraInput");
+  const uploadStatus  = document.getElementById("uploadStatus");
   const previewContainer = document.getElementById("previewContainer");
+  const progressWrap = document.getElementById("progressWrap");
+  const progressBar  = document.getElementById("progressBar");
   let selectedFiles = [];
 
+  function setProgress(pct) {
+    progressWrap.style.display = "block";
+    progressBar.style.width = pct + "%";
+    if (pct >= 100) setTimeout(() => { progressWrap.style.display = "none"; progressBar.style.width = "0%"; }, 800);
+  }
+
   function addFilesToQueue(files) {
-    const fileArray = Array.from(files);
-    fileArray.forEach(file => {
-      if (file.type.startsWith("image/") || file.type.startsWith("video/")) {
-        selectedFiles.push({ file, type: file.type.startsWith("image/") ? "image" : "video" });
+    Array.from(files).forEach(file => {
+      if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) return;
+      const type = file.type.startsWith("image/") ? "image" : "video";
+      selectedFiles.push({ file, type });
+
+      const div = document.createElement("div");
+      if (type === "image") {
+        const img = document.createElement("img");
+        img.className = "preview-thumb";
+        img.title = file.name;
         const reader = new FileReader();
-        reader.onload = (ev) => {
-          const div = document.createElement("div");
-          if (file.type.startsWith("image/")) {
-            const img = document.createElement("img");
-            img.src = ev.target.result;
-            img.className = "preview-thumb";
-            img.title = file.name;
-            div.appendChild(img);
-          } else {
-            const icon = document.createElement("div");
-            icon.className = "preview-video-icon";
-            icon.innerHTML = '<i class="fas fa-video" style="font-size:24px;"></i><span style="display:block; font-size:10px;">Video</span>';
-            div.appendChild(icon);
-          }
-          previewContainer.appendChild(div);
-        };
+        reader.onload = (ev) => img.src = ev.target.result;
         reader.readAsDataURL(file);
+        div.appendChild(img);
+      } else {
+        const icon = document.createElement("div");
+        icon.className = "preview-video-icon";
+        icon.innerHTML = '<i class="fas fa-video" style="font-size:22px;"></i><span style="display:block;font-size:10px;margin-top:4px;">Video</span>';
+        div.appendChild(icon);
       }
+      previewContainer.appendChild(div);
     });
-    if (fileArray.length > 0) showToast(`${fileArray.length} file(s) added. Click "Upload All".`);
+    if (files.length > 0) showToast(`${files.length} file(s) queued. Tap "Upload All".`);
   }
 
-  galleryBtn.addEventListener("click", () => galleryInput.click());
-  galleryInput.addEventListener("change", (e) => {
-    if (e.target.files.length) addFilesToQueue(e.target.files);
-    galleryInput.value = "";
-  });
+  document.getElementById("galleryBtn").addEventListener("click", () => galleryInput.click());
+  galleryInput.addEventListener("change", (e) => { if (e.target.files.length) addFilesToQueue(e.target.files); galleryInput.value = ""; });
 
-  cameraBtn.addEventListener("click", () => {
-    cameraInput.value = "";
-    cameraInput.click();
-  });
-  cameraInput.addEventListener("change", (e) => {
-    if (e.target.files.length) addFilesToQueue(e.target.files);
-    cameraInput.value = "";
-  });
+  document.getElementById("cameraBtn").addEventListener("click", () => { cameraInput.value = ""; cameraInput.click(); });
+  cameraInput.addEventListener("change", (e) => { if (e.target.files.length) addFilesToQueue(e.target.files); cameraInput.value = ""; });
 
-  async function uploadWithRetry(uploadFn, file, name, retries = 2) {
-    for (let attempt = 1; attempt <= retries; attempt++) {
-      try {
-        return await uploadFn(file, name);
-      } catch (err) {
-        if (attempt === retries) throw err;
-        await new Promise(r => setTimeout(r, 1000));
-      }
-    }
-  }
+  // ─── UPLOAD ───────────────────────────────────────────────────────────────────
+  document.getElementById("uploadBtn").addEventListener("click", async () => {
+    if (selectedFiles.length === 0) { showToast("Please select at least one file first.", 3000); return; }
 
-  uploadBtn.addEventListener("click", async () => {
-    if (selectedFiles.length === 0) {
-      showToast("Please select or capture at least one file first.", 3000);
-      return;
-    }
-    uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Uploading ${selectedFiles.length} file(s) with retries...`;
-    
+    uploadStatus.style.color = "#2b7a3e";
+    uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Starting upload of ${selectedFiles.length} file(s)...`;
+    setProgress(0);
+
     const uploadedItems = [];
     let successCount = 0;
     let failCount = 0;
 
-    for (const { file, type } of selectedFiles) {
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const { file, type } = selectedFiles[i];
+      uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> [${i+1}/${selectedFiles.length}] Uploading "${file.name}"...`;
+
       try {
         let url;
         if (type === "image") {
           const compressed = await compressImage(file);
-          url = await uploadWithRetry(uploadImageToImgbb, compressed, file.name, 2);
+          url = await uploadImageToImgbb(compressed);
         } else {
-          // Video upload with progress
-          const progressHandler = (percent) => {
-            uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Video "${file.name}" (${percent}%)`;
-          };
-          url = await uploadWithRetry(uploadVideoToCatbox, file, file.name, 2);
+          // Video — show per-file progress
+          url = await uploadVideo(file, (pct) => {
+            setProgress(pct);
+            uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> [${i+1}/${selectedFiles.length}] Video "${file.name}" – ${pct}%`;
+          });
         }
-        uploadedItems.push({ name: file.name, url: url, type: type });
+
+        // Auto-add to current subject
+        const newNote = {
+          id: Date.now() + Math.random(),
+          subject: currentSubject,
+          title: file.name.replace(/\.[^.]+$/, "").slice(0, 40),
+          url,
+          type,
+          desc: "Click to enlarge"
+        };
+        notesData.push(newNote);
+        saveToLocal();
+        renderNotes();
+
+        uploadedItems.push({ name: file.name, url, type });
         successCount++;
-        uploadStatus.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Uploaded ${successCount}/${selectedFiles.length} files...`;
+        setProgress(Math.round(((i + 1) / selectedFiles.length) * 100));
+        uploadStatus.innerHTML = `<i class="fas fa-check" style="color:#2b7a3e;"></i> "${file.name}" uploaded!`;
+
       } catch (err) {
         failCount++;
-        console.error(err);
-        uploadStatus.innerHTML = `<span style="color:#c0392b;">Failed: ${file.name} – ${err.message}</span>`;
-        await new Promise(r => setTimeout(r, 500));
+        console.error("Upload error:", err);
+        uploadStatus.style.color = "#c0392b";
+        uploadStatus.innerHTML = `❌ "${file.name}" failed: ${err.message}`;
+        await new Promise(r => setTimeout(r, 1500));
+        uploadStatus.style.color = "#2b7a3e";
       }
     }
 
+    // Notify admin via email
     if (successCount > 0) {
-      let linksHtml = "";
-      uploadedItems.forEach(item => {
-        linksHtml += `\n${item.type === "image" ? "📷" : "🎥"} **${item.name}** : ${item.url}`;
-      });
-      const emailPayload = {
-        name: "Class12_Student",
-        message: `📸 A student uploaded ${successCount} file(s) for **${currentSubject.toUpperCase()}** subject.\n\n${linksHtml}\n\n✅ Images on ImgBB, videos on Catbox. Use these links in NOTESHUBS.`,
-        _subject: `📖 NOTESHUBS: ${successCount} New File(s) Uploaded - ${currentSubject.toUpperCase()}`,
-        _captcha: "false",
-        _template: "table"
-      };
+      const links = uploadedItems.map(i => `${i.type === "image" ? "📷" : "🎥"} ${i.name}: ${i.url}`).join("\n");
       try {
         await fetch("https://formsubmit.co/ajax/sammanlamsal31@gmail.com", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(emailPayload)
+          body: JSON.stringify({
+            name: "Class12_Student",
+            message: `${successCount} file(s) uploaded for ${currentSubject.toUpperCase()}.\n\n${links}`,
+            _subject: `📖 NOTESHUBS: ${successCount} New File(s) – ${currentSubject.toUpperCase()}`,
+            _captcha: "false",
+            _template: "table"
+          })
         });
-        uploadStatus.innerHTML = `✅ ${successCount} file(s) uploaded successfully! Will be reviewed by the admin soon. ${failCount > 0 ? `(${failCount} failed)` : ""}`;
-        showToast(`✅ Uploaded! Admin will review.`);
-      } catch (err) {
-        uploadStatus.innerHTML = `✅ Files uploaded but email notification had an issue. Admin still has the links?`;
-      }
+      } catch (e) { /* email optional */ }
+
+      uploadStatus.style.color = "#2b7a3e";
+      uploadStatus.innerHTML = `✅ ${successCount} file(s) uploaded & added to notes!${failCount ? ` (${failCount} failed)` : ""}`;
+      showToast(`✅ ${successCount} file(s) uploaded successfully!`);
     } else {
-      uploadStatus.innerHTML = `❌ All uploads failed. Check your internet connection and try again.`;
-      showToast("Upload failed. Please check your network.");
+      uploadStatus.style.color = "#c0392b";
+      uploadStatus.innerHTML = `❌ All uploads failed. Check your internet and try again.`;
+      showToast("Upload failed. Check network.");
     }
-    
-    setTimeout(() => uploadStatus.innerHTML = '', 8000);
+
+    setTimeout(() => { uploadStatus.innerHTML = ""; uploadStatus.style.color = "#2b7a3e"; }, 8000);
     selectedFiles = [];
     previewContainer.innerHTML = "";
   });
